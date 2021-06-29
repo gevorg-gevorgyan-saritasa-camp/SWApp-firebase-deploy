@@ -1,0 +1,44 @@
+#header {
+    display: flex;
+}
+
+#title {
+    margin: 30px;
+    width: max-content;
+}
+
+.authentication_block {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.authentication_block button {
+    margin-right: 20px;
+    height: min-content;
+}
+
+#films_table {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#films_table th {
+    background: cadetblue;
+    width: 300px;
+}
+
+#films_table td {
+    text-align: center;
+}
+
+#films_table tr {
+    height: 100px;
+}
+
+.search {
+    margin: 20px auto 20px auto;
+    width: max-content;
+}

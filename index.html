@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/index.css">
+    <title>
+        SW Films
+    </title>
+</head>
+<body>
+    <div id="header">
+        <h1 id="title">SW Films</h1>
+        <div class="authentication_block">
+            <button id="login">Sign In</button>
+            <button id="register">Sign Up</button>
+        </div>
+    </div>
+    <div class="search">
+        <input id="search_field" placeholder="Enter title...">
+        <button>Search</button>
+    </div>
+    <table id="films_table">
+        <tr>
+            <th>Title</th>
+            <th>Director</th>
+            <th>Release Date</th>
+        </tr>
+    </table>
+</body>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+<script src="js/index.js"></script>
+</html>
