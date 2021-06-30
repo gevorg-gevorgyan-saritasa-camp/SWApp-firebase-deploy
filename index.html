@@ -8,26 +8,46 @@
 </head>
 <body>
     <div id="header">
-        <h1 id="title">SW Films</h1>
+        <h1>SW Films</h1>
         <div class="authentication_block">
-            <button id="login">Sign In</button>
-            <button id="register">Sign Up</button>
+            <button onclick="window.location.href = 'login.html'" id="login">Sign In</button>
         </div>
     </div>
     <div class="search">
+        <label for="search_field">Search:</label>
         <input id="search_field" placeholder="Enter title...">
-        <button>Search</button>
     </div>
-    <table id="films_table">
-        <tr>
-            <th>Title</th>
-            <th>Director</th>
-            <th>Release Date</th>
-        </tr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th id="title">Title</th>
+                <th id="director">Director</th>
+                <th id="release_date">Release Date</th>
+            </tr>
+        </thead>
+        <tbody id="films_table">
+
+        </tbody>
     </table>
 </body>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: 'AIzaSyAdmnfws0fAtonx9JhFU9-dhfQaZQWY748',
+        authDomain: 'swfilms-eac07.firebaseapp.com',
+        projectId: 'swfilms-eac07',
+        storageBucket: 'swfilms-eac07.appspot.com',
+        messagingSenderId: '584668937233',
+        appId: '1:584668937233:web:70f8c95bd46a1fb24205b0',
+        measurementId: 'G-TK6SH2FDWB',
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+</script>
 <script src="js/index.js"></script>
+<script src="js/search.js"></script>
 </html>
