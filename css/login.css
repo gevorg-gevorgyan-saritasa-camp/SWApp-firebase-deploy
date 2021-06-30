@@ -1,0 +1,27 @@
+.sign_in_buttons {
+    display: flex;
+    margin: auto;
+    height: 90vh;
+    width: max-content;
+    align-items: center;
+}
+
+#sign_in_google {
+    display: flex;
+    font-size: 20px;
+    width: max-content;
+    align-items: center;
+}
+
+.link_block {
+    display: flex;
+    margin: 30px 30px 0 30px;
+}
+
+.link_block a {
+    text-decoration: none;
+    margin-left: 10px;
+    color: black;
+    font-size: 24px;
+}
+

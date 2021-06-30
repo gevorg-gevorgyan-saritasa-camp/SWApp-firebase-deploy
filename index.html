@@ -10,7 +10,7 @@
     <div id="header">
         <h1>SW Films</h1>
         <div class="authentication_block">
-            <button onclick="window.location.href = 'login.html'" id="login">Sign In</button>
+            <button id="login" onclick="window.location.href = 'login.html'">Sign In</button>
         </div>
     </div>
     <div class="search">
@@ -33,21 +33,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
-<script>
-    const firebaseConfig = {
-        apiKey: 'AIzaSyAdmnfws0fAtonx9JhFU9-dhfQaZQWY748',
-        authDomain: 'swfilms-eac07.firebaseapp.com',
-        projectId: 'swfilms-eac07',
-        storageBucket: 'swfilms-eac07.appspot.com',
-        messagingSenderId: '584668937233',
-        appId: '1:584668937233:web:70f8c95bd46a1fb24205b0',
-        measurementId: 'G-TK6SH2FDWB',
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    const auth = firebase.auth();
-</script>
+<script src="js/firebase.js"></script>
 <script src="js/index.js"></script>
 <script src="js/search.js"></script>
 </html>

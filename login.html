@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="css/login.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sign In</title>
 </head>
 <body>
-    <a href="index.html">Back</a>
-    <div>
-        <button>Sign In with Google</button>
+    <div class="link_block">
+        <img src="https://img.icons8.com/material-sharp/24/000000/arrow-pointing-left.png"/>
+        <a href="index.html">Back</a>
     </div>
+    <div class="sign_in_buttons">
+        <button id="sign_in_google">
+            <img style="margin-right: 10px" src="https://img.icons8.com/color/48/000000/google-logo.png"/>
+            Sign In with Google
+        </button>
+    </div>>
 </body>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/auth.js"></script>
 </html>

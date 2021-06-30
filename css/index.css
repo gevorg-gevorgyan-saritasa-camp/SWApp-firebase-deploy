@@ -15,8 +15,10 @@
 }
 
 .authentication_block button {
-    margin-right: 20px;
+    padding: 10px;
+    margin-right: 50px;
     height: min-content;
+    font-size: 20px;
 }
 
 .table {
