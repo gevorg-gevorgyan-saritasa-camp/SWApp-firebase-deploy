@@ -9,7 +9,12 @@
 <body>
     <div id="header">
         <h1>SW Films</h1>
-        <div class="authentication_block">
+        <div id="auth" class="authentication_block">
+            <img src="https://img.icons8.com/ios-glyphs/30/000000/user--v1.png"/>
+            <span style="margin-left: 10px; margin-right: 10px" id="username"></span>
+            <button id="sign_out">Sign Out</button>
+        </div>
+        <div id="no_auth" class="authentication_block">
             <button id="login" onclick="window.location.href = 'login.html'">Sign In</button>
         </div>
     </div>
@@ -33,7 +38,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
-<script src="js/firebase.js"></script>
-<script src="js/index.js"></script>
-<script src="js/search.js"></script>
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/mainpage/index.js"></script>
+<script type="module" src="js/mainpage/search.js"></script>
 </html>

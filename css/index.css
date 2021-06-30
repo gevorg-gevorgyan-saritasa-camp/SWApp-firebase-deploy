@@ -44,3 +44,14 @@
     margin: 20px auto 20px auto;
     width: max-content;
 }
+
+.info_cell {
+    border-style: dotted;
+    border-color: cadetblue;
+    border-width: 3px;
+}
+
+.info_cell:hover {
+    cursor: grab;
+    border-style: solid;
+}

@@ -1,3 +1,5 @@
+import {db} from '../firebase.js';
+import {createRow} from './index.js';
 const search = document.getElementById('search_field');
 
 search.addEventListener('input', () => {
