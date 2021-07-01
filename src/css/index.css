@@ -32,6 +32,14 @@
     width: 300px;
 }
 
+.sort_buttons button{
+    visibility: hidden;
+}
+
+.sort_buttons:hover button {
+    visibility: visible;
+}
+
 #films_table td {
     text-align: center;
 }
@@ -52,6 +60,10 @@
 }
 
 .info_cell:hover {
-    cursor: grab;
+    cursor: pointer;
     border-style: solid;
+}
+
+#episode_id {
+    width: 100px;
 }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../css/index.css">
+    <title>
+        SW Film
+    </title>
+</head>
+<body>
+    <div id="header">
+        <h1>SW Film</h1>
+        <div id="auth" class="authentication_block">
+            <img src="https://img.icons8.com/ios-glyphs/30/000000/user--v1.png"/>
+            <span style="margin-left: 10px; margin-right: 10px" id="username"></span>
+            <button id="sign_out">Sign Out</button>
+        </div>
+        <div id="no_auth" class="authentication_block">
+            <button id="login" onclick="window.location.href = 'login.html'">Sign In</button>
+        </div>
+    </div>
+    <div class="search">
+        <label for="search_field">Search:</label>
+        <input id="search_field" placeholder="Enter title...">
+    </div>
+    <table class="table">
+        <thead>
+            <tr id="header_row">
+                <th id="episode_id">
+                    Episode #
+                    <div class="sort_buttons">
+                        <button><img src="https://img.icons8.com/material-rounded/24/000000/thick-arrow-pointing-up.png"/></button>
+                        <button><img src="https://img.icons8.com/material-rounded/24/000000/thick-arrow-pointing-down.png"/></button>
+                    </div>
+                </th>
+                <th id="title">
+                    Title
+                    <div class="sort_buttons">
+                        <button><img src="https://img.icons8.com/material-rounded/24/000000/thick-arrow-pointing-up.png"/></button>
+                        <button><img src="https://img.icons8.com/material-rounded/24/000000/thick-arrow-pointing-down.png"/></button>
+                    </div>
+                </th>
+                <th id="director">
+                    Director
+                    <div class="sort_buttons">
+                        <button><img src="https://img.icons8.com/material-rounded/24/000000/thick-arrow-pointing-up.png"/></button>
+                        <button><img src="https://img.icons8.com/material-rounded/24/000000/thick-arrow-pointing-down.png"/></button>
+                    </div>
+                </th>
+                <th id="release_date">
+                    Release Date
+                    <div class="sort_buttons">
+                        <button><img src="https://img.icons8.com/material-rounded/24/000000/thick-arrow-pointing-up.png"/></button>
+                        <button><img src="https://img.icons8.com/material-rounded/24/000000/thick-arrow-pointing-down.png"/></button>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="films_table">
+
+        </tbody>
+    </table>
+</body>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+<script type="module" src="../firebase/firebase.js"></script>
+<script type="module" src="../js/mainpage/tablesort.js"></script>
+<script type="module" src="../js/mainpage/index.js"></script>
+</html>
