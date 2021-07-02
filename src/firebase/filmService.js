@@ -1,36 +1,59 @@
-import {FILMS_COLLECTION, DEFAULT_PAGE_SIZE, NEXT_PAGE, PREV_PAGE} from "../values/values.js";
+import {FILMS_COLLECTION, DEFAULT_PAGE_SIZE, NEXT_PAGE, PREV_PAGE, DEFAULT_SEARCH_FIELD} from "../values/values.js";
 import {db} from './firebase.js';
 
 class FilmService {
   constructor() {
   };
 
-  async getPage(sortOptions, direction) {
-    console.log(direction);
+  async getPage(sortOptions, direction, searchOption = '') {
+    const end = searchOption.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
+
+    console.log(sortOptions, searchOption);
     switch (direction) {
       case PREV_PAGE:
-        let prevPageFilms = await db.collection(FILMS_COLLECTION)
+        let prevPageFilms = db.collection(FILMS_COLLECTION);
+        if(searchOption) {
+          prevPageFilms = await prevPageFilms
+            .where(DEFAULT_SEARCH_FIELD, '>=', searchOption)
+            .where(DEFAULT_SEARCH_FIELD, '<=', end)
+        }
+        prevPageFilms = await prevPageFilms
           .orderBy(sortOptions.field, sortOptions.rule)
           .endBefore(this.currentPageFilms.docs[0])
           .limitToLast(DEFAULT_PAGE_SIZE)
           .get()
-        this.currentPageFilms = prevPageFilms;
+        if (prevPageFilms.size !== 0) {
+          this.currentPageFilms = prevPageFilms;
+        }
         break;
       case NEXT_PAGE:
-        let nextPageFilms = await db.collection(FILMS_COLLECTION)
+        let nextPageFilms = db.collection(FILMS_COLLECTION);
+        if(searchOption) {
+          nextPageFilms = await nextPageFilms
+            .where(DEFAULT_SEARCH_FIELD, '>=', searchOption)
+            .where(DEFAULT_SEARCH_FIELD, '<=', end)
+        }
+        nextPageFilms = await nextPageFilms
           .orderBy(sortOptions.field, sortOptions.rule)
           .startAfter(this.currentPageFilms.docs[this.currentPageFilms.size - 1])
           .limit(DEFAULT_PAGE_SIZE)
           .get()
-        this.currentPageFilms = nextPageFilms;
+        if (nextPageFilms.size !== 0) {
+          this.currentPageFilms = nextPageFilms;
+        }
         break;
       default:
-        this.currentPageFilms = await db.collection(FILMS_COLLECTION)
+        this.currentPageFilms = db.collection(FILMS_COLLECTION);
+        if(searchOption) {
+          this.currentPageFilms = await this.currentPageFilms
+            .where(DEFAULT_SEARCH_FIELD, '>=', searchOption)
+            .where(DEFAULT_SEARCH_FIELD, '<=', end)
+        }
+        this.currentPageFilms = await this.currentPageFilms
           .orderBy(sortOptions.field, sortOptions.rule)
           .limit(DEFAULT_PAGE_SIZE)
           .get();
-        let allFilms = await this.getFilms();
-        this.filmsAmount = allFilms.length;
+
         break;
     }
 

@@ -1,9 +1,11 @@
 import filmService from '../../firebase/filmService.js';
-import {NEXT_PAGE, PREV_PAGE, DEFAULT_PAGE_SIZE, ASCENDING, DESCENDING, SORTING_FIELDS,
-  DEFAULT_ORDER} from '../../values/values.js';
+import {
+  NEXT_PAGE, PREV_PAGE, DEFAULT_PAGE_SIZE, ASCENDING, DESCENDING, SORTING_FIELDS,
+  DEFAULT_ORDER, DEFAULT_SEARCH_FIELD} from '../../values/values.js';
 
 let currentPageNum = 1;
 let sortOptions = {field: DEFAULT_ORDER, rule: ASCENDING};
+let searchOption = '';
 const tableBody = document.getElementById('films_table');
 const auth_block = document.getElementById('auth');
 const no_auth_block = document.getElementById('no_auth');
@@ -47,9 +49,16 @@ prevPageButton.addEventListener('click', () => {
 });
 
 search.addEventListener('input', () => {
-  let name = search.value;
+  searchOption = search.value;
+  if (searchOption) {
+    sortOptions.field = DEFAULT_SEARCH_FIELD;
+    sortOptions.rule = ASCENDING;
+  } else {
+    sortOptions.field = DEFAULT_ORDER;
+    sortOptions.rule = ASCENDING;
+  }
 
-  filmService.searchFilmsByName(name)
+  filmService.getPage(sortOptions, null, searchOption)
     .then(foundFilms => {
       fillTable(foundFilms);
     });
@@ -100,21 +109,10 @@ descSortButtons.forEach((descSortButton) => {
  *
  */
 function loadPage(direction) {
-  filmService.getPage(sortOptions, direction)
+  filmService.getPage(sortOptions, direction, searchOption)
     .then(pageData => {
-      fillTable(pageData);
-      let pagesLimit = Math.round(filmService.filmsAmount / DEFAULT_PAGE_SIZE);
-      switch (direction) {
-      case NEXT_PAGE:
-        if (currentPageNum === pagesLimit) {
-          nextPageButton.disabled = true;
-        }
-        break;
-      case PREV_PAGE:
-        if (currentPageNum === 1) {
-          prevPageButton.disabled = true;
-        }
-        break;
+      if (pageData.length !== 0) {
+        fillTable(pageData);
       }
     });
 }

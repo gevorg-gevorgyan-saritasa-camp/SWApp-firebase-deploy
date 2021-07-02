@@ -6,3 +6,4 @@ export const DEFAULT_ORDER = 'pk';
 export const ASCENDING = 'asc';
 export const DESCENDING = 'desc';
 export const SORTING_FIELDS = 'fields.';
+export const DEFAULT_SEARCH_FIELD = 'fields.title';
