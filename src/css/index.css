@@ -67,3 +67,25 @@
 #episode_id {
     width: 100px;
 }
+
+.pagination_block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.pagination_block button{
+    font-size: 20px;
+    margin-right: 2px;
+    margin-left: 2px;
+    background-color: white;
+    border-color: cadetblue;
+    border-style: solid;
+}
+
+.pagination_block button:hover{
+    background-color: cadetblue;
+    color: white;
+    cursor: pointer;
+}
