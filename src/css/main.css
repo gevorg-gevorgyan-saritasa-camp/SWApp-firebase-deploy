@@ -31,13 +31,13 @@
     font-size: 20px;
 }
 
-.info_cell {
+.info-cell {
     border-style: dotted;
     border-color: cadetblue;
     border-width: 3px;
 }
 
-.info_cell:hover {
+.info-cell:hover {
     cursor: pointer;
     border-style: solid;
 }

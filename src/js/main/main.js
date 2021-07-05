@@ -125,7 +125,7 @@ function fillTable(rowsData) {
     let releaseDate = document.createElement('td');
     let info = document.createElement('td');
 
-    info.className = 'info_cell';
+    info.className = 'info-cell';
     info.innerHTML = 'More info...';
     info.addEventListener('click', moreInfo);
 
