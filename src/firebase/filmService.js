@@ -13,6 +13,15 @@ class FilmService {
   constructor() {
   };
 
+  /**
+   * Function that gets a list of films of one page, depending on the options.
+   *
+   * @param {object} sortOptions, Options for sorting the receiving movies.
+   * @param {string} direction, Transition direction (previous or next page).
+   * @param {string} searchOption, Option to search film by name.
+   *
+   * @return {Promise<*>} Returns promise with received films array.
+   */
   async getPage(sortOptions, direction, searchOption = '') {
     const end = searchOption.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
 
@@ -68,13 +77,27 @@ class FilmService {
     return this.extractFilmsData(this.currentPageFilms);
   }
 
+  /**
+   * Extracts films data from docs array.
+   *
+   * @param {object} films, Films object received from db.
+   *
+   * @return {Array<Film>} Films data array.
+   */
   extractFilmsData(films) {
+    console.log(films)
     return films.docs.map(doc => {
       const {fields} = doc.data();
       return fields;
     });
   }
 
+  /**
+   * Gets one film by id.
+   *
+   * @param {number} currentFilmId, Film id.
+   * @return {Promise<*>} Promise with film data.
+   */
   async getSingleFilm(currentFilmId) {
     let film = await db.collection(FILMS_COLLECTION)
       .where(FILM_EPISODE_FIELD, '==', currentFilmId)
@@ -83,6 +106,13 @@ class FilmService {
     return film.docs[0].data().fields;
   }
 
+  /**
+   * Gets array of names of related entity items.
+   *
+   * @param {string} entityCollectionName, Name of related entity (collection in db).
+   * @param {Array<number>} relatedEntityIds, Array of related entity items ids.
+   * @return {Promise<*[]>} Promise with related entity items array.
+   */
   async getRelatedEntityItems(entityCollectionName, relatedEntityIds) {
     let idsArray = [];
     let relatedEntityArr = [];

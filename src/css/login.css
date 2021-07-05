@@ -1,4 +1,4 @@
-.sign_in_buttons {
+.sign-in-buttons-block {
     display: flex;
     margin: auto;
     height: 90vh;
@@ -6,14 +6,14 @@
     align-items: center;
 }
 
-#sign_in_google {
+#sign-in-google-button {
     display: flex;
     font-size: 20px;
     width: max-content;
     align-items: center;
 }
 
-.link_block {
+.link-back-block {
     display: flex;
     width: min-content;
     padding: 5px;
@@ -23,16 +23,15 @@
     border-width: 3px;
 }
 
-.link_block:hover {
+.link-back-block:hover {
     cursor: pointer;
     border-style: solid;
 }
 
-.link_block a {
+.link-back-block a {
     text-decoration: none;
     margin-left: 10px;
     color: black;
     font-size: 24px;
 }
-
 

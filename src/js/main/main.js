@@ -10,41 +10,39 @@ import {
   FILM_PAGE_PATH,
   LOGIN_PAGE_PATH,
 } from '../values/values.js';
-let currentPageNum = 1;
+import {signOut} from '../../firebase/auth.js';
+import {authUiMainPage} from '../authUi.js';
+
 let sortOptions = {field: DEFAULT_ORDER, rule: ASCENDING};
 let searchOption = '';
-const tableBody = document.getElementById('films_table');
-const loginButton = document.getElementById('login');
-const auth_block = document.getElementById('auth');
-const no_auth_block = document.getElementById('no_auth');
-const search = document.getElementById('search_field');
-const ascSortButtons = document.getElementsByName('ascSort');
-const descSortButtons = document.getElementsByName('descSort');
+
+const tableBody = document.getElementById('films-table-body');
+
+const loginButton = document.getElementById('sign-in-button');
+const signOutButton = document.getElementById('sign-out-button');
+const authBlock = document.getElementById('auth-block');
+const noAuthBlock = document.getElementById('no-auth-block');
+
+const searchInput = document.getElementById('search-field');
+
+const ascSortButtons = document.getElementsByName('asc-table-sort-button');
+const descSortButtons = document.getElementsByName('desc-table-sort-button');
+
 const nextPageButton = document.getElementById('next-page-button');
 const prevPageButton = document.getElementById('prev-page-button');
 
 window.onload = () => {
-  if (localStorage.getItem('token')) {
-    no_auth_block.style.display = 'none';
-    auth_block.style.display = 'flex';
-
-    let username = document.getElementById('username');
-
-    username.innerHTML = localStorage.getItem('username');
-  } else {
-    no_auth_block.style.display = 'flex';
-    auth_block.style.display = 'none';
-  }
-
-  loadStartPage(sortOptions);
+  authUiMainPage(authBlock, noAuthBlock, document.getElementById('username'));
+  loadStartPage();
 };
 
 loginButton.addEventListener('click', () => {
   window.location.href = LOGIN_PAGE_PATH;
 });
 
+signOutButton.addEventListener('click', signOut);
+
 nextPageButton.addEventListener('click', () => {
-  currentPageNum++;
   if (prevPageButton.disabled) {
     prevPageButton.disabled = false;
   }
@@ -52,15 +50,14 @@ nextPageButton.addEventListener('click', () => {
 });
 
 prevPageButton.addEventListener('click', () => {
-  currentPageNum--;
   if (nextPageButton.disabled) {
     nextPageButton.disabled = false;
   }
   loadPage(PREV_PAGE);
 });
 
-search.addEventListener('input', () => {
-  searchOption = search.value;
+searchInput.addEventListener('input', () => {
+  searchOption = searchInput.value;
   if (searchOption) {
     sortOptions.field = DEFAULT_SEARCH_FIELD;
     sortOptions.rule = ASCENDING;
@@ -75,9 +72,6 @@ search.addEventListener('input', () => {
     });
 });
 
-/**
- *
- */
 ascSortButtons.forEach((ascSortButton) => {
   ascSortButton.addEventListener('click', (e) => {
     let column = e.target.parentNode.parentNode.id;
@@ -85,13 +79,10 @@ ascSortButtons.forEach((ascSortButton) => {
     sortOptions.field = SORTING_FIELDS + column;
     sortOptions.rule = ASCENDING;
 
-    loadStartPage(sortOptions);
+    loadStartPage();
   });
 });
 
-/**
- *
- */
 descSortButtons.forEach((descSortButton) => {
   descSortButton.addEventListener('click', (e) => {
     let column = e.target.parentNode.parentNode.id;
@@ -99,12 +90,14 @@ descSortButtons.forEach((descSortButton) => {
     sortOptions.field = SORTING_FIELDS + column;
     sortOptions.rule = DESCENDING;
 
-    loadStartPage(sortOptions);
+    loadStartPage();
   });
 });
 
 /**
- *
+ * Loading page when navigating using the pagination menu arrows.
+ * 
+ * @param {string} direction, Transition direction.
  */
 function loadPage(direction) {
   filmService.getPage(sortOptions, direction, searchOption)
@@ -116,12 +109,13 @@ function loadPage(direction) {
 }
 
 /**
+ * Removing all existing rows and filling table rows with received films data.
  *
+ * @param {Array<Film>} rowsData, Received films data.
  */
 function fillTable(rowsData) {
   while (tableBody.firstChild) {
-    // This will remove all children within tbody which are <tr> elements
-    tableBody.removeChild(tableBody.firstChild);
+    tableBody.removeChild(tableBody.firstChild); //Removing all existing rows
   }
 
   rowsData.forEach(film => {
@@ -155,7 +149,9 @@ function fillTable(rowsData) {
 }
 
 /**
+ * Redirect to film page or login page, depending on user's authentication status.
  *
+ * @param {Event} e, Event object (row as a target).
  */
 function moreInfo(e) {
   if (localStorage.getItem('token')) {
@@ -168,14 +164,14 @@ function moreInfo(e) {
 }
 
 /**
+ * Loading start page on the first page visit or after sorting.
  *
  */
-function loadStartPage(options) {
-  filmService.getPage(options)
+function loadStartPage() {
+  filmService.getPage(sortOptions)
     .then(pageData => {
       fillTable(pageData);
     });
   prevPageButton.disabled = true;
   nextPageButton.disabled = false;
-  currentPageNum = 1;
 }

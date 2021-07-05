@@ -1,32 +1,31 @@
 import filmService from '../../firebase/filmService.js';
-import {LOGIN_PAGE_PATH} from '../values/values.js';
+import {signOut} from '../../firebase/auth.js';
+import {authUiFilmPage} from '../authUi.js';
 
 const currentFilmId = Number(sessionStorage.getItem('currentFilmId'));
 const currentFilm = filmService.getSingleFilm(currentFilmId);
-const entitiesSelector = document.querySelector('.film-related-entities-selector');
-const relatedEntityList = document.querySelector('.film-related-entity-list');
+const entitiesSelector = document.getElementById('film-related-entities-selector');
+const relatedEntityList = document.getElementById('film-related-entity-list');
+const signOutButton = document.getElementById('sign-out-button');
 
 window.onload = () => {
-  if (!localStorage.getItem('token')) {
-    window.location.href = LOGIN_PAGE_PATH;
-  } else {
-    document.getElementById('username').innerHTML = localStorage.getItem('username');
-  }
-
+  authUiFilmPage(document.getElementById('username'));
   showFilmInfo();
 };
 
+signOutButton.addEventListener('click',  signOut);
+
 /**
- *
+ * Showing information about the current film.
  */
 function showFilmInfo() {
   currentFilm
     .then(currentFilmData => {
-      document.querySelector('.film-title').innerHTML = currentFilmData.title + ' (Episode ' + currentFilmId + ')';
-      document.querySelector('.film-director').innerHTML = 'Director: ' + currentFilmData.director;
-      document.querySelector('.film-producer').innerHTML = 'Producer: ' + currentFilmData.producer;
-      document.querySelector('.film-release-date').innerHTML = 'Release Date: ' + currentFilmData.release_date;
-      document.querySelector('.film-opening-crawl').innerHTML = 'Opening crawl: ' + currentFilmData.opening_crawl;
+      document.getElementById('film-title').innerHTML = currentFilmData.title + ' (Episode ' + currentFilmId + ')';
+      document.getElementById('film-director').innerHTML = 'Director: ' + currentFilmData.director;
+      document.getElementById('film-producer').innerHTML = 'Producer: ' + currentFilmData.producer;
+      document.getElementById('film-release-date').innerHTML = 'Release Date: ' + currentFilmData.release_date;
+      document.getElementById('film-opening-crawl').innerHTML = 'Opening crawl: ' + currentFilmData.opening_crawl;
 
       let selectedCollectionName = entitiesSelector[entitiesSelector.selectedIndex].value;
 
@@ -40,7 +39,9 @@ entitiesSelector.addEventListener('change', () => {
 });
 
 /**
+ * Showing the list of a selected related entity items.
  *
+ * @param {string} selectedCollectionName, Name of the selected related entity (collection in db).
  */
 function showRelatedEntityList(selectedCollectionName) {
   while (relatedEntityList.firstChild) {

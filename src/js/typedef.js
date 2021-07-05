@@ -49,3 +49,19 @@
  * @property {string} surface_water Amount of water in on the planet in percent
  * @property {string} terrain Planet's terrain
  */
+
+/**
+ * A Star Wars species
+ *
+ * @typedef {object} Species
+ * @property {string} name Species's name
+ * @property {Character} people Representatives of rhe species
+ * @property {string} language Language of the species
+ * @property {string} skin_colors Skin colors of the species representatives
+ * @property {string} hair_colors Hair colors of the species representatives
+ * @property {string} eye_colors Eye colors of the species representatives
+ * @property {string} designation Species designation
+ * @property {string} classification Species classification
+ * @property {string} average_height Average height of the species representatives
+ * @property {string} average_lifespan Average lifespan of the species representatives
+ */

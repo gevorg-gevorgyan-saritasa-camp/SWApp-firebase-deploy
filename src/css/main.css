@@ -1,31 +1,31 @@
-.table {
+.films-table {
     margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.table th {
+.films-table th {
     background: cadetblue;
     width: 300px;
 }
 
-.sort_buttons button{
+.table-sort-buttons button{
     visibility: hidden;
 }
 
-.sort_buttons:hover button {
+.table-sort-buttons:hover button {
     visibility: visible;
 }
 
-#films_table td {
+#films-table-body td {
     text-align: center;
 }
 
-.table tr {
+.films-table tr {
     height: 100px;
 }
 
-.search {
+.search-block {
     margin: 100px auto 20px auto;
     width: max-content;
     font-size: 20px;
@@ -46,14 +46,14 @@
     width: 100px;
 }
 
-.pagination_block {
+.pagination-block {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 10px;
 }
 
-.pagination_block button{
+.pagination-block button{
     font-size: 20px;
     margin-right: 2px;
     margin-left: 2px;
@@ -62,7 +62,7 @@
     border-style: solid;
 }
 
-.pagination_block button:hover{
+.pagination-block button:hover{
     background-color: cadetblue;
     color: white;
     cursor: pointer;

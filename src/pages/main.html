@@ -1,66 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="../css/mainpage.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/header.css">
     <title>
         SW Film
     </title>
 </head>
 <body>
-    <div id="header">
+    <div class="header">
         <h1>SW Films</h1>
-        <div id="auth" class="authentication_block">
+        <div id="auth-block" class="authentication_block">
             <img src="https://img.icons8.com/ios-glyphs/30/000000/user--v1.png"/>
-            <span style="margin-left: 10px; margin-right: 10px" id="username"></span>
-            <button id="sign_out">Sign Out</button>
+            <span id="username"></span>
+            <button id="sign-out-button">Sign Out</button>
         </div>
-        <div id="no_auth" class="authentication_block">
-            <button id="login">Sign In</button>
+        <div id="no-auth-block" class="authentication_block">
+            <button id="sign-in-button">Sign In</button>
         </div>
     </div>
-    <div class="search">
-        <label for="search_field">Search:</label>
-        <input id="search_field" placeholder="Enter title...">
+    <div class="search-block">
+        <label for="search-field">Search:</label>
+        <input id="search-field" placeholder="Enter title...">
     </div>
-    <table class="table">
+    <table class="films-table">
         <thead>
-            <tr id="header_row">
+            <tr>
                 <th id="episode_id">
                     Episode #
-                    <div class="sort_buttons">
-                        <button style="font-size: 28px" name="ascSort">&#8593;</button>
-                        <button style="font-size: 28px" name="descSort">&#8595;</button>
+                    <div class="table-sort-buttons">
+                        <button style="font-size: 28px" name="asc-table-sort-button">&#8593;</button>
+                        <button style="font-size: 28px" name="desc-table-sort-button">&#8595;</button>
                     </div>
                 </th>
                 <th id="title">
                     Title
-                    <div class="sort_buttons">
-                        <button style="font-size: 28px" name="ascSort">&#8593;</button>
-                        <button style="font-size: 28px" name="descSort">&#8595;</button>
+                    <div class="table-sort-buttons">
+                        <button style="font-size: 28px" name="asc-table-sort-button">&#8593;</button>
+                        <button style="font-size: 28px" name="desc-table-sort-button">&#8595;</button>
                     </div>
                 </th>
                 <th id="director">
                     Director
-                    <div class="sort_buttons">
-                        <button style="font-size: 28px" name="ascSort">&#8593;</button>
-                        <button style="font-size: 28px" name="descSort">&#8595;</button>
+                    <div class="table-sort-buttons">
+                        <button style="font-size: 28px" name="asc-table-sort-button">&#8593;</button>
+                        <button style="font-size: 28px" name="desc-table-sort-button">&#8595;</button>
                     </div>
                 </th>
                 <th id="release_date">
                     Release Date
-                    <div class="sort_buttons">
-                        <button style="font-size: 28px" name="ascSort">&#8593;</button>
-                        <button style="font-size: 28px" name="descSort">&#8595;</button>
+                    <div class="table-sort-buttons">
+                        <button style="font-size: 28px" name="asc-table-sort-button">&#8593;</button>
+                        <button style="font-size: 28px" name="desc-table-sort-button">&#8595;</button>
                     </div>
                 </th>
             </tr>
         </thead>
-        <tbody id="films_table">
+        <tbody id="films-table-body">
 
         </tbody>
     </table>
-    <div class="pagination_block">
+    <div class="pagination-block">
         <button id="prev-page-button">&laquo;</button>
         <button id="next-page-button">&raquo;</button>
     </div>
@@ -69,5 +69,4 @@
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
 <script type="module" src="../js/main/main.js"></script>
-<script type="module" src="../js/auth.js"></script>
 </html>

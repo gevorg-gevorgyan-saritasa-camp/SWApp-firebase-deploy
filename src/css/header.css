@@ -1,11 +1,11 @@
-#header {
+.header {
     display: flex;
     border-style: solid;
     border-width: 2px;
     border-color: cadetblue;
 }
 
-#header h1 {
+.header h1 {
     margin: 30px;
     width: max-content;
 }
@@ -26,4 +26,9 @@
     margin-right: 50px;
     height: min-content;
     font-size: 20px;
+}
+
+#username {
+    margin-left: 10px;
+    margin-right: 10px;
 }
