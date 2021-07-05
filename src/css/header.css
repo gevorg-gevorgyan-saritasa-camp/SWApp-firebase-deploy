@@ -1,0 +1,29 @@
+#header {
+    display: flex;
+    border-style: solid;
+    border-width: 2px;
+    border-color: cadetblue;
+}
+
+#header h1 {
+    margin: 30px;
+    width: max-content;
+}
+
+.authentication_block {
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: cadetblue;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 30px;
+}
+
+.authentication_block button {
+    padding: 10px;
+    margin-right: 50px;
+    height: min-content;
+    font-size: 20px;
+}

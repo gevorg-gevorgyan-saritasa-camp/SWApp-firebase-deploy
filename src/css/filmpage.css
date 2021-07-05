@@ -1,6 +1,16 @@
 .link_block {
     display: flex;
+    width: min-content;
+    padding: 5px;
     margin: 30px 30px 0 30px;
+    border-style: dotted;
+    border-color: cadetblue;
+    border-width: 3px;
+}
+
+.link_block:hover {
+    cursor: pointer;
+    border-style: solid;
 }
 
 .link_block a {
@@ -8,4 +18,37 @@
     margin-left: 10px;
     color: black;
     font-size: 24px;
+}
+
+.main-content {
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+.main-content div {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.film-title {
+    font-weight: bold;
+}
+
+.film-opening-crawl {
+    width: 50%;
+}
+
+.film-related-entity-list {
+    list-style-type: circle;
+}
+
+.film-related-entity-list li {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.film-related-entities-selector {
+    border-color: cadetblue;
+    border-width: 2px;
+    font-size: 20px;
 }

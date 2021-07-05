@@ -1,36 +1,47 @@
 import filmService from '../../firebase/filmService.js';
 import {
-  NEXT_PAGE, PREV_PAGE, DEFAULT_PAGE_SIZE, ASCENDING, DESCENDING, SORTING_FIELDS,
-  DEFAULT_ORDER, DEFAULT_SEARCH_FIELD} from '../../values/values.js';
-
+  NEXT_PAGE,
+  PREV_PAGE,
+  ASCENDING,
+  DESCENDING,
+  SORTING_FIELDS,
+  DEFAULT_ORDER,
+  DEFAULT_SEARCH_FIELD,
+  FILM_PAGE_PATH,
+  LOGIN_PAGE_PATH,
+} from '../values/values.js';
 let currentPageNum = 1;
 let sortOptions = {field: DEFAULT_ORDER, rule: ASCENDING};
 let searchOption = '';
 const tableBody = document.getElementById('films_table');
+const loginButton = document.getElementById('login');
 const auth_block = document.getElementById('auth');
 const no_auth_block = document.getElementById('no_auth');
-const sign_out_button = document.getElementById('sign_out');
 const search = document.getElementById('search_field');
 const ascSortButtons = document.getElementsByName('ascSort');
 const descSortButtons = document.getElementsByName('descSort');
 const nextPageButton = document.getElementById('next-page-button');
 const prevPageButton = document.getElementById('prev-page-button');
 
-if (localStorage.getItem('token')) {
-  no_auth_block.style.display = 'none';
-  auth_block.style.display = 'flex';
-
-  let username = document.getElementById('username');
-
-  username.innerHTML = localStorage.getItem('username');
-} else {
-  no_auth_block.style.display = 'flex';
-  auth_block.style.display = 'none';
-}
-
 window.onload = () => {
+  if (localStorage.getItem('token')) {
+    no_auth_block.style.display = 'none';
+    auth_block.style.display = 'flex';
+
+    let username = document.getElementById('username');
+
+    username.innerHTML = localStorage.getItem('username');
+  } else {
+    no_auth_block.style.display = 'flex';
+    auth_block.style.display = 'none';
+  }
+
   loadStartPage(sortOptions);
 };
+
+loginButton.addEventListener('click', () => {
+  window.location.href = LOGIN_PAGE_PATH;
+});
 
 nextPageButton.addEventListener('click', () => {
   currentPageNum++;
@@ -61,19 +72,6 @@ search.addEventListener('input', () => {
   filmService.getPage(sortOptions, null, searchOption)
     .then(foundFilms => {
       fillTable(foundFilms);
-    });
-});
-
-sign_out_button.addEventListener('click', () => {
-  window.firebase.auth()
-    .signOut()
-    .then(() => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('username');
-      window.location.reload();
-    })
-    .catch(err => {
-      console.log(err);
     });
 });
 
@@ -126,7 +124,7 @@ function fillTable(rowsData) {
     tableBody.removeChild(tableBody.firstChild);
   }
 
-  rowsData.forEach(elem => {
+  rowsData.forEach(film => {
     let episode = document.createElement('td');
     let title = document.createElement('td');
     let director = document.createElement('td');
@@ -137,18 +135,14 @@ function fillTable(rowsData) {
     info.innerHTML = 'More info...';
     info.addEventListener('click', moreInfo);
 
-    episode.innerHTML = elem.episode_id;
-    episode.setAttribute('name', 'episode_id');
-    title.innerHTML = elem.title;
-    title.setAttribute('name', 'title');
-    director.innerHTML = elem.director;
-    director.setAttribute('name', 'director');
-    releaseDate.innerHTML = elem.release_date;
-    releaseDate.setAttribute('name', 'release_date');
+    episode.innerHTML = film.episode_id;
+    title.innerHTML = film.title;
+    director.innerHTML = film.director;
+    releaseDate.innerHTML = film.release_date;
 
     let row = document.createElement('tr');
 
-    row.id = elem.episode_id;
+    row.id = film.episode_id;
 
     row.appendChild(episode);
     row.appendChild(title);
@@ -165,10 +159,10 @@ function fillTable(rowsData) {
  */
 function moreInfo(e) {
   if (localStorage.getItem('token')) {
-    sessionStorage.setItem('currentFilm', e.target.parentElement.id);
-    window.location.href = 'filmpage.html';
+    sessionStorage.setItem('currentFilmId', e.target.parentNode.id);
+    window.location.href = FILM_PAGE_PATH;
   } else {
-    window.location.href = 'login.html';
+    window.location.href = LOGIN_PAGE_PATH;
   }
 
 }

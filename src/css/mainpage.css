@@ -1,26 +1,3 @@
-#header {
-    display: flex;
-}
-
-#header h1 {
-    margin: 30px;
-    width: max-content;
-}
-
-.authentication_block {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.authentication_block button {
-    padding: 10px;
-    margin-right: 50px;
-    height: min-content;
-    font-size: 20px;
-}
-
 .table {
     margin-top: 100px;
     margin-left: auto;
@@ -49,8 +26,9 @@
 }
 
 .search {
-    margin: 20px auto 20px auto;
+    margin: 100px auto 20px auto;
     width: max-content;
+    font-size: 20px;
 }
 
 .info_cell {

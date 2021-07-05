@@ -15,7 +15,17 @@
 
 .link_block {
     display: flex;
+    width: min-content;
+    padding: 5px;
     margin: 30px 30px 0 30px;
+    border-style: dotted;
+    border-color: cadetblue;
+    border-width: 3px;
+}
+
+.link_block:hover {
+    cursor: pointer;
+    border-style: solid;
 }
 
 .link_block a {
@@ -24,4 +34,5 @@
     color: black;
     font-size: 24px;
 }
+
 

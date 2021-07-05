@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/mainpage.css">
+    <link rel="stylesheet" href="../css/header.css">
     <title>
         SW Film
     </title>
 </head>
 <body>
     <div id="header">
-        <h1>SW Film</h1>
+        <h1>SW Films</h1>
         <div id="auth" class="authentication_block">
             <img src="https://img.icons8.com/ios-glyphs/30/000000/user--v1.png"/>
             <span style="margin-left: 10px; margin-right: 10px" id="username"></span>
             <button id="sign_out">Sign Out</button>
         </div>
         <div id="no_auth" class="authentication_block">
-            <button id="login" onclick="window.location.href = 'login.html'">Sign In</button>
+            <button id="login">Sign In</button>
         </div>
     </div>
     <div class="search">
@@ -67,5 +68,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
-<script type="module" src="../js/mainpage/mainpage.js"></script>
+<script type="module" src="../js/main/main.js"></script>
+<script type="module" src="../js/auth.js"></script>
 </html>

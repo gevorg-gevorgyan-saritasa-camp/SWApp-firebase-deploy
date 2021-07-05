@@ -1,4 +1,12 @@
-import {FILMS_COLLECTION, DEFAULT_PAGE_SIZE, NEXT_PAGE, PREV_PAGE, DEFAULT_SEARCH_FIELD} from "../values/values.js";
+import {
+  FILMS_COLLECTION,
+  DEFAULT_PAGE_SIZE,
+  NEXT_PAGE,
+  PREV_PAGE,
+  DEFAULT_SEARCH_FIELD,
+  FILM_EPISODE_FIELD,
+  DEFAULT_JOIN_ARRAY_SIZE
+} from "../js/values/values.js";
 import {db} from './firebase.js';
 
 class FilmService {
@@ -57,32 +65,41 @@ class FilmService {
         break;
     }
 
-    return this.getFilmsData(this.currentPageFilms);
+    return this.extractFilmsData(this.currentPageFilms);
   }
 
-  async getFilms() {
-    let films = await db.collection(FILMS_COLLECTION).get();
-    return this.getFilmsData(films);
-  }
-
-  getFilmsData(docs) {
-    return docs.docs.map(doc => {
+  extractFilmsData(films) {
+    return films.docs.map(doc => {
       const {fields} = doc.data();
       return fields;
     });
   }
 
-  async searchFilmsByName(name) {
-    let filmsDataArr = await this.getFilms();
-    let foundFilms = [];
+  async getSingleFilm(currentFilmId) {
+    let film = await db.collection(FILMS_COLLECTION)
+      .where(FILM_EPISODE_FIELD, '==', currentFilmId)
+      .get();
 
-    filmsDataArr.forEach(film => {
-      if (film.title.includes(name)) {
-        foundFilms.push(film);
-      }
+    return film.docs[0].data().fields;
+  }
+
+  async getRelatedEntityItems(entityCollectionName, relatedEntityIds) {
+    let idsArray = [];
+    let relatedEntityArr = [];
+    for (let i = 0; i < relatedEntityIds.length; i += DEFAULT_JOIN_ARRAY_SIZE) {
+      idsArray.push(relatedEntityIds.slice(i, i+ DEFAULT_JOIN_ARRAY_SIZE));
+    }
+
+    for (const array of idsArray) {
+      let tmpArr = await db.collection(entityCollectionName)
+        .where('pk', 'in', array)
+        .get();
+      relatedEntityArr = relatedEntityArr.concat(tmpArr.docs);
+    }
+
+    return relatedEntityArr.map(item => {
+      return item.data().fields.name;
     })
-
-    return foundFilms;
   }
 }
 
