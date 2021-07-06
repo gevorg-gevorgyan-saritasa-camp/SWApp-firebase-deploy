@@ -1,3 +1,7 @@
+body {
+    font-size: 62.5%;
+}
+
 .sign-in-buttons-block {
     display: flex;
     margin: auto;
@@ -6,9 +10,9 @@
     align-items: center;
 }
 
-#sign-in-google-button {
+.sign-in-button {
     display: flex;
-    font-size: 20px;
+    font-size: 2.0em;
     width: max-content;
     align-items: center;
 }
@@ -18,9 +22,7 @@
     width: min-content;
     padding: 5px;
     margin: 30px 30px 0 30px;
-    border-style: dotted;
-    border-color: cadetblue;
-    border-width: 3px;
+    border: 3px dotted cadetblue;
 }
 
 .link-back-block:hover {
@@ -32,6 +34,6 @@
     text-decoration: none;
     margin-left: 10px;
     color: black;
-    font-size: 24px;
+    font-size: 2.4em;
 }
 

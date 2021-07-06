@@ -1,4 +1,4 @@
-import {LOGIN_PAGE_PATH} from './values/values.js';
+import {Paths} from './values/values.js';
 
 /**
  * Function determines which block will be shown on a main page, depending on whether the user is authenticated or not.
@@ -8,15 +8,11 @@ import {LOGIN_PAGE_PATH} from './values/values.js';
  * @param {HTMLSpanElement} username, Span for username
  */
 export function authUiMainPage(authBlock, noAuthBlock, username) {
-  if (localStorage.getItem('token')) {
-    noAuthBlock.style.display = 'none';
-    authBlock.style.display = 'flex';
+  const isAuth = localStorage.getItem('token');
+  noAuthBlock.classList.toggle('hidden', isAuth);
+  authBlock.classList.toggle('hidden', !isAuth);
 
-    username.innerHTML = localStorage.getItem('username');
-  } else {
-    noAuthBlock.style.display = 'flex';
-    authBlock.style.display = 'none';
-  }
+  username.innerHTML = localStorage.getItem('username');
 }
 
 /**
@@ -26,7 +22,7 @@ export function authUiMainPage(authBlock, noAuthBlock, username) {
  */
 export function authUiFilmPage(username) {
   if (!localStorage.getItem('token')) {
-    window.location.href = LOGIN_PAGE_PATH;
+    window.location.href = Paths.LoginPagePath;
   } else {
     username.innerHTML = localStorage.getItem('username');
   }

@@ -1,19 +1,16 @@
-.header {
+header {
     display: flex;
-    border-style: solid;
-    border-width: 2px;
-    border-color: cadetblue;
+    border: 2px solid cadetblue;
 }
 
-.header h1 {
+header h1 {
     margin: 30px;
     width: max-content;
+    font-size: 2.8em;
 }
 
 .authentication_block {
-    border-left-style: solid;
-    border-left-width: 1px;
-    border-left-color: cadetblue;
+    border-left: 1px solid cadetblue;
     margin-left: auto;
     display: flex;
     align-items: center;
@@ -21,14 +18,29 @@
     padding-left: 30px;
 }
 
-.authentication_block button {
+.authentication_block button, .authentication_block a {
+    background-color: white;
+    border: 1px solid cadetblue;
+    color: black;
+    text-decoration: none;
     padding: 10px;
     margin-right: 50px;
     height: min-content;
-    font-size: 20px;
+    font-size: 2.0em;
 }
 
-#username {
+.authentication_block button:hover, .authentication_block a:hover {
+    cursor: pointer;
+    background-color: cadetblue;
+    color: white;
+}
+
+.username {
     margin-left: 10px;
     margin-right: 10px;
+    font-size: 2.0em;
+}
+
+.hidden {
+    display: none;
 }

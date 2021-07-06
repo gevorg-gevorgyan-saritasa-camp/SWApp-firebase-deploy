@@ -1,24 +1,20 @@
 import filmService from '../../firebase/filmService.js';
 import {
-  NEXT_PAGE,
-  PREV_PAGE,
-  ASCENDING,
-  DESCENDING,
-  SORTING_FIELDS,
-  DEFAULT_ORDER,
-  DEFAULT_SEARCH_FIELD,
-  FILM_PAGE_PATH,
-  LOGIN_PAGE_PATH,
+  Navigation,
+  SearchOptions,
+  SortOptions,
+  Paths,
+  DEBOUNCE_DELAY_TIME,
 } from '../values/values.js';
 import {signOut} from '../../firebase/auth.js';
 import {authUiMainPage} from '../authUi.js';
+import {debounce} from '../debounce.js';
 
-let sortOptions = {field: DEFAULT_ORDER, rule: ASCENDING};
+let sortOptions = {field: SortOptions.DefaultOrder, rule: SortOptions.Asc};
 let searchOption = '';
 
 const tableBody = document.getElementById('films-table-body');
 
-const loginButton = document.getElementById('sign-in-button');
 const signOutButton = document.getElementById('sign-out-button');
 const authBlock = document.getElementById('auth-block');
 const noAuthBlock = document.getElementById('no-auth-block');
@@ -36,63 +32,65 @@ window.onload = () => {
   loadStartPage();
 };
 
-loginButton.addEventListener('click', () => {
-  window.location.href = LOGIN_PAGE_PATH;
-});
-
 signOutButton.addEventListener('click', signOut);
 
 nextPageButton.addEventListener('click', () => {
   if (prevPageButton.disabled) {
     prevPageButton.disabled = false;
   }
-  loadPage(NEXT_PAGE);
+  loadPage(Navigation.NextPage);
 });
 
 prevPageButton.addEventListener('click', () => {
   if (nextPageButton.disabled) {
     nextPageButton.disabled = false;
   }
-  loadPage(PREV_PAGE);
+  loadPage(Navigation.PrevPage);
 });
 
-searchInput.addEventListener('input', () => {
+searchInput.addEventListener('input', debounce(searchByTitle, DEBOUNCE_DELAY_TIME));
+
+ascSortButtons.forEach(ascSortButton => {
+  ascSortButton.addEventListener('click', (e) => {
+    const column = e.target.parentNode.parentNode.id;
+
+    sortOptions.field = SortOptions.SortingFields + column;
+    sortOptions.rule = SortOptions.Asc;
+
+    loadStartPage();
+  });
+});
+
+descSortButtons.forEach(descSortButton => {
+  descSortButton.addEventListener('click', (e) => {
+    const column = e.target.parentNode.parentNode.id;
+
+    sortOptions.field = SortOptions.SortingFields + column;
+    sortOptions.rule = SortOptions.Desc;
+
+    loadStartPage();
+  });
+});
+
+/**
+ * A function that finds film by the entered title.
+ *
+ */
+function searchByTitle() {
   searchOption = searchInput.value;
   if (searchOption) {
-    sortOptions.field = DEFAULT_SEARCH_FIELD;
-    sortOptions.rule = ASCENDING;
+    sortOptions.field = SearchOptions.DefaultSearchField;
+    sortOptions.rule = SortOptions.Asc;
   } else {
-    sortOptions.field = DEFAULT_ORDER;
-    sortOptions.rule = ASCENDING;
+    sortOptions.field = SortOptions.DefaultOrder;
+    sortOptions.rule = SortOptions.Asc;
   }
 
   filmService.getPage(sortOptions, null, searchOption)
     .then(foundFilms => {
       fillTable(foundFilms);
     });
-});
-
-ascSortButtons.forEach((ascSortButton) => {
-  ascSortButton.addEventListener('click', (e) => {
-    let column = e.target.parentNode.parentNode.id;
-
-    sortOptions.field = SORTING_FIELDS + column;
-    sortOptions.rule = ASCENDING;
-
-    loadStartPage();
-  });
-});
-
-descSortButtons.forEach((descSortButton) => {
-  descSortButton.addEventListener('click', (e) => {
-    let column = e.target.parentNode.parentNode.id;
-
-    sortOptions.field = SORTING_FIELDS + column;
-    sortOptions.rule = DESCENDING;
-
-    loadStartPage();
-  });
-});
+}
 
 /**
  * Loading page when navigating using the pagination menu arrows.
@@ -119,11 +117,11 @@ function fillTable(rowsData) {
   }
 
   rowsData.forEach(film => {
-    let episode = document.createElement('td');
-    let title = document.createElement('td');
-    let director = document.createElement('td');
-    let releaseDate = document.createElement('td');
-    let info = document.createElement('td');
+    const episode = document.createElement('td');
+    const title = document.createElement('td');
+    const director = document.createElement('td');
+    const releaseDate = document.createElement('td');
+    const info = document.createElement('td');
 
     info.className = 'info-cell';
     info.innerHTML = 'More info...';
@@ -134,7 +132,7 @@ function fillTable(rowsData) {
     director.innerHTML = film.director;
     releaseDate.innerHTML = film.release_date;
 
-    let row = document.createElement('tr');
+    const row = document.createElement('tr');
 
     row.id = film.episode_id;
 
@@ -155,10 +153,11 @@ function fillTable(rowsData) {
  */
 function moreInfo(e) {
   if (localStorage.getItem('token')) {
-    sessionStorage.setItem('currentFilmId', e.target.parentNode.id);
-    window.location.href = FILM_PAGE_PATH;
+    const params = new URLSearchParams();
+    params.append('id', e.target.parentNode.id);
+    window.location.href = `${Paths.FilmPagePath}?${params.toString()}`;
   } else {
-    window.location.href = LOGIN_PAGE_PATH;
+    window.location.href = Paths.LoginPagePath;
   }
 
 }

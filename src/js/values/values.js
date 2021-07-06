@@ -1,14 +1,27 @@
 export const DEFAULT_PAGE_SIZE = 2;
 export const FILMS_COLLECTION = 'films';
-export const NEXT_PAGE = 'next';
-export const PREV_PAGE = 'previous';
-export const DEFAULT_ORDER = 'pk';
-export const ASCENDING = 'asc';
-export const DESCENDING = 'desc';
-export const SORTING_FIELDS = 'fields.';
-export const DEFAULT_SEARCH_FIELD = 'fields.title';
-export const FILM_EPISODE_FIELD = 'fields.episode_id';
 export const DEFAULT_JOIN_ARRAY_SIZE = 10;
-export const MAIN_PAGE_PATH = 'main.html';
-export const FILM_PAGE_PATH = 'film.html';
-export const LOGIN_PAGE_PATH = 'login.html';
+export const DEBOUNCE_DELAY_TIME = 500;
+
+export const Navigation = {
+  NextPage: 'next',
+  PrevPage: 'prev',
+};
+
+export const Paths = {
+  MainPagePath: 'main.html',
+  FilmPagePath: 'film.html',
+  LoginPagePath: 'login.html',
+};
+
+export const SortOptions = {
+  DefaultOrder: 'pk',
+  Asc: 'asc',
+  Desc: 'desc',
+  SortingFields: 'fields.',
+};
+
+export const SearchOptions = {
+  DefaultSearchField: 'fields.title',
+  FilmEpisodeField: 'fields.episode_id',
+}

@@ -1,11 +1,12 @@
+body {
+    font-size: 62.5%;
+}
 .link-back-block {
     display: flex;
     width: min-content;
     padding: 5px;
     margin: 30px 30px 0 30px;
-    border-style: dotted;
-    border-color: cadetblue;
-    border-width: 3px;
+    border: 3px dotted cadetblue;
 }
 
 .link-back-block:hover {
@@ -17,7 +18,7 @@
     text-decoration: none;
     margin-left: 10px;
     color: black;
-    font-size: 24px;
+    font-size: 2.4em;
 }
 
 .main-content {
@@ -27,28 +28,28 @@
 
 .main-content div {
     margin-top: 20px;
-    font-size: 20px;
+    font-size: 2.0em;
 }
 
-#film-title {
+.film-title {
     font-weight: bold;
 }
 
-#film-opening-crawl {
+.film-opening-crawl {
     width: 50%;
 }
 
-#film-related-entity-list {
+.film-related-entity-list {
     list-style-type: circle;
 }
 
-#film-related-entity-list li {
+.film-related-entity-list li {
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 1.0em;
 }
 
-#film-related-entities-selector {
+.film-related-entities-selector {
     border-color: cadetblue;
     border-width: 2px;
-    font-size: 20px;
+    font-size: 1.0em;
 }

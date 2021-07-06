@@ -1,3 +1,7 @@
+body {
+    font-size: 62.5%;
+}
+
 .films-table {
     margin-top: 100px;
     margin-left: auto;
@@ -7,18 +11,21 @@
 .films-table th {
     background: cadetblue;
     width: 300px;
+    font-size: 2.0em;
 }
 
 .table-sort-buttons button{
     visibility: hidden;
+    font-size: 1.8em;
 }
 
 .table-sort-buttons:hover button {
     visibility: visible;
 }
 
-#films-table-body td {
+.table-body td {
     text-align: center;
+    font-size: 1.8em;
 }
 
 .films-table tr {
@@ -28,13 +35,11 @@
 .search-block {
     margin: 100px auto 20px auto;
     width: max-content;
-    font-size: 20px;
+    font-size: 2.0em;
 }
 
 .info-cell {
-    border-style: dotted;
-    border-color: cadetblue;
-    border-width: 3px;
+    border: 3px dotted cadetblue;
 }
 
 .info-cell:hover {
@@ -42,7 +47,7 @@
     border-style: solid;
 }
 
-#episode_id {
+.episode-cell{
     width: 100px;
 }
 
@@ -54,7 +59,7 @@
 }
 
 .pagination-block button{
-    font-size: 20px;
+    font-size: 2.0em;
     margin-right: 2px;
     margin-left: 2px;
     background-color: white;

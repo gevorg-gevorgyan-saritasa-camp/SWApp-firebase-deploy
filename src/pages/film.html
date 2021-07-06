@@ -7,32 +7,32 @@
     <title>Film info</title>
 </head>
 <body>
-    <div class="header">
+    <header>
         <h1>SW Films</h1>
         <div id="auth-block" class="authentication_block">
-            <img src="https://img.icons8.com/ios-glyphs/30/000000/user--v1.png"/>
-            <span id="username"></span>
-            <button id="sign-out-button">Sign Out</button>
+            <img alt="User" src="https://img.icons8.com/ios-glyphs/30/000000/user--v1.png"/>
+            <span class="username" id="username"></span>
+            <button type="button" id="sign-out-button">Sign Out</button>
         </div>
-    </div>
+    </header>
     <div class="link-back-block">
-        <img src="https://img.icons8.com/material-sharp/24/000000/arrow-pointing-left.png"/>
+        <img alt="Go" src="https://img.icons8.com/material-sharp/24/000000/arrow-pointing-left.png"/>
         <a href="main.html">Back</a>
     </div>
     <div class="main-content">
-        <div id="film-title"></div>
+        <div class="film-title" id="film-title"></div>
         <div id="film-director"></div>
         <div id="film-release-date"></div>
         <div id="film-producer"></div>
-        <div id="film-opening-crawl"></div>
+        <div class="film-opening-crawl" id="film-opening-crawl"></div>
         <div id="film-related-entities-block">
-            <select id="film-related-entities-selector">
+            <select class="film-related-entities-selector" id="film-related-entities-selector">
                 <option value="characters">Characters</option>
                 <option value="planets">Planets</option>
                 <option value="species">Species</option>
             </select>
             in this film
-            <ul id="film-related-entity-list"></ul>
+            <ul class="film-related-entity-list" id="film-related-entity-list"></ul>
         </div>
     </div>
 </body>

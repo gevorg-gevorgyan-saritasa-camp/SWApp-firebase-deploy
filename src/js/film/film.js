@@ -2,7 +2,9 @@ import filmService from '../../firebase/filmService.js';
 import {signOut} from '../../firebase/auth.js';
 import {authUiFilmPage} from '../authUi.js';
 
-const currentFilmId = Number(sessionStorage.getItem('currentFilmId'));
+const params = new URLSearchParams(window.location.search);
+const currentFilmId = Number(params.get('id'));
+
 const currentFilm = filmService.getSingleFilm(currentFilmId);
 const entitiesSelector = document.getElementById('film-related-entities-selector');
 const relatedEntityList = document.getElementById('film-related-entity-list');
@@ -21,20 +23,20 @@ signOutButton.addEventListener('click',  signOut);
 function showFilmInfo() {
   currentFilm
     .then(currentFilmData => {
-      document.getElementById('film-title').innerHTML = currentFilmData.title + ' (Episode ' + currentFilmId + ')';
-      document.getElementById('film-director').innerHTML = 'Director: ' + currentFilmData.director;
-      document.getElementById('film-producer').innerHTML = 'Producer: ' + currentFilmData.producer;
-      document.getElementById('film-release-date').innerHTML = 'Release Date: ' + currentFilmData.release_date;
-      document.getElementById('film-opening-crawl').innerHTML = 'Opening crawl: ' + currentFilmData.opening_crawl;
+      document.getElementById('film-title').innerHTML = `${currentFilmData.title} (Episode ${currentFilmId})`;
+      document.getElementById('film-director').innerHTML = `Director: ${currentFilmData.director}`;
+      document.getElementById('film-producer').innerHTML = `Producer: ${currentFilmData.producer}`;
+      document.getElementById('film-release-date').innerHTML = `Release Date: ${currentFilmData.release_date}`;
+      document.getElementById('film-opening-crawl').innerHTML = `Opening crawl: ${currentFilmData.opening_crawl}`;
 
-      let selectedCollectionName = entitiesSelector[entitiesSelector.selectedIndex].value;
+      const selectedCollectionName = entitiesSelector[entitiesSelector.selectedIndex].value;
 
       showRelatedEntityList(selectedCollectionName);
     });
 }
 
 entitiesSelector.addEventListener('change', () => {
-  let selectedCollectionName = entitiesSelector[entitiesSelector.selectedIndex].value;
+  const selectedCollectionName = entitiesSelector[entitiesSelector.selectedIndex].value;
   showRelatedEntityList(selectedCollectionName);
 });
 
@@ -51,11 +53,13 @@ function showRelatedEntityList(selectedCollectionName) {
 
   currentFilm
     .then(currentFilmData => {
-      filmService.getRelatedEntityItems(selectedCollectionName === 'characters' ? 'people'
-        : selectedCollectionName, currentFilmData[selectedCollectionName])
+      filmService.getRelatedEntityItems(selectedCollectionName === 'characters' 
+        ? 'people'
+        : selectedCollectionName, 
+      currentFilmData[selectedCollectionName])
         .then(relatedEntityPayload => {
           relatedEntityPayload.forEach(item => {
-            let listEl = document.createElement('li');
+            const listEl = document.createElement('li');
             listEl.innerHTML = item;
             relatedEntityList.appendChild(listEl);
           });

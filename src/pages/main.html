@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/header.css">
     <title>
@@ -8,55 +9,55 @@
     </title>
 </head>
 <body>
-    <div class="header">
+    <header>
         <h1>SW Films</h1>
         <div id="auth-block" class="authentication_block">
-            <img src="https://img.icons8.com/ios-glyphs/30/000000/user--v1.png"/>
-            <span id="username"></span>
-            <button id="sign-out-button">Sign Out</button>
+            <img alt="User" src="https://img.icons8.com/ios-glyphs/30/000000/user--v1.png"/>
+            <span class="username" id="username"></span>
+            <button type="button" id="sign-out-button">Sign Out</button>
         </div>
         <div id="no-auth-block" class="authentication_block">
-            <button id="sign-in-button">Sign In</button>
+            <a href="login.html">Sign In</a>
         </div>
-    </div>
+    </header>
     <div class="search-block">
         <label for="search-field">Search:</label>
-        <input id="search-field" placeholder="Enter title...">
+        <input type="search" id="search-field" placeholder="Enter title...">
     </div>
     <table class="films-table">
         <thead>
             <tr>
-                <th id="episode_id">
+                <th class="episode-cell" id="episode_id">
                     Episode #
                     <div class="table-sort-buttons">
-                        <button style="font-size: 28px" name="asc-table-sort-button">&#8593;</button>
-                        <button style="font-size: 28px" name="desc-table-sort-button">&#8595;</button>
+                        <button name="asc-table-sort-button">&#8593;</button>
+                        <button name="desc-table-sort-button">&#8595;</button>
                     </div>
                 </th>
                 <th id="title">
                     Title
                     <div class="table-sort-buttons">
-                        <button style="font-size: 28px" name="asc-table-sort-button">&#8593;</button>
-                        <button style="font-size: 28px" name="desc-table-sort-button">&#8595;</button>
+                        <button name="asc-table-sort-button">&#8593;</button>
+                        <button name="desc-table-sort-button">&#8595;</button>
                     </div>
                 </th>
                 <th id="director">
                     Director
                     <div class="table-sort-buttons">
-                        <button style="font-size: 28px" name="asc-table-sort-button">&#8593;</button>
-                        <button style="font-size: 28px" name="desc-table-sort-button">&#8595;</button>
+                        <button name="asc-table-sort-button">&#8593;</button>
+                        <button name="desc-table-sort-button">&#8595;</button>
                     </div>
                 </th>
                 <th id="release_date">
                     Release Date
                     <div class="table-sort-buttons">
-                        <button style="font-size: 28px" name="asc-table-sort-button">&#8593;</button>
-                        <button style="font-size: 28px" name="desc-table-sort-button">&#8595;</button>
+                        <button name="asc-table-sort-button">&#8593;</button>
+                        <button name="desc-table-sort-button">&#8595;</button>
                     </div>
                 </th>
             </tr>
         </thead>
-        <tbody id="films-table-body">
+        <tbody class="table-body" id="films-table-body">
 
         </tbody>
     </table>

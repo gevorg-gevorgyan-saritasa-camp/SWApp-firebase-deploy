@@ -1,20 +1,20 @@
-import {MAIN_PAGE_PATH} from '../js/values/values.js';
+import {Paths} from '../js/values/values.js';
 
 /**
  * Log in to google account via firebase.
  */
 export function singInWithGoogle() {
-  let provider = new window.firebase.auth.GoogleAuthProvider();
+  const provider = new window.firebase.auth.GoogleAuthProvider();
 
   window.firebase.auth()
     .signInWithPopup(provider)
     .then(res => {
       localStorage.setItem('username', res.user.displayName);
       localStorage.setItem('token', res.credential.idToken);
-      window.location.href = MAIN_PAGE_PATH;
+      window.location.href = Paths.MainPagePath;
     })
     .catch(err => {
-      alert(err);
+      throw new Error(err);
     });
 }
 
@@ -27,9 +27,9 @@ export function signOut() {
     .then(() => {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
-      window.location.href = MAIN_PAGE_PATH;
+      window.location.href = Paths.MainPagePath;
     })
     .catch(err => {
-      console.log(err);
+      throw new Error(err);
     });
 }
