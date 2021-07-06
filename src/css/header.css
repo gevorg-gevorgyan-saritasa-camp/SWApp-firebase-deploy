@@ -6,7 +6,7 @@ header {
 header h1 {
     margin: 30px;
     width: max-content;
-    font-size: 2.8em;
+    font-size: 1.8em;
 }
 
 .authentication_block {
@@ -26,7 +26,7 @@ header h1 {
     padding: 10px;
     margin-right: 50px;
     height: min-content;
-    font-size: 2.0em;
+    font-size: 1.4em;
 }
 
 .authentication_block button:hover, .authentication_block a:hover {
@@ -38,7 +38,7 @@ header h1 {
 .username {
     margin-left: 10px;
     margin-right: 10px;
-    font-size: 2.0em;
+    font-size: 1.4em;
 }
 
 .hidden {

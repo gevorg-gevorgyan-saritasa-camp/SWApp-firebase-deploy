@@ -1,7 +1,3 @@
-body {
-    font-size: 62.5%;
-}
-
 .sign-in-buttons-block {
     display: flex;
     margin: auto;
@@ -12,9 +8,13 @@ body {
 
 .sign-in-button {
     display: flex;
-    font-size: 2.0em;
+    font-size: 1.4em;
     width: max-content;
     align-items: center;
+}
+
+.sign-in-button img {
+    margin-right: 10px;
 }
 
 .link-back-block {
@@ -34,6 +34,6 @@ body {
     text-decoration: none;
     margin-left: 10px;
     color: black;
-    font-size: 2.4em;
+    font-size: 2.0em;
 }
 
