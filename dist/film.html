@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Film info</title>
+<script defer src="vendors-node_modules_firebase_dist_index_esm_js.js"></script><script defer src="film.js"></script></head>
+<body>
+    <header>
+        <h1>SW Films</h1>
+        <div id="auth-block" class="authentication_block">
+            <img alt="User" src="https://img.icons8.com/ios-glyphs/30/000000/user--v1.png"/>
+            <span class="username" id="username"></span>
+            <button type="button" id="sign-out-button">Sign Out</button>
+        </div>
+    </header>
+    <div class="link-back-block">
+        <img alt="Go" src="https://img.icons8.com/material-sharp/24/000000/arrow-pointing-left.png"/>
+        <a href="main.html">Back</a>
+    </div>
+    <div class="main-content">
+        <div class="film-title" id="film-title"></div>
+        <div id="film-director"></div>
+        <div id="film-release-date"></div>
+        <div id="film-producer"></div>
+        <div class="film-opening-crawl" id="film-opening-crawl"></div>
+        <div id="film-related-entities-block">
+            <select class="film-related-entities-selector" id="film-related-entities-selector">
+                <option value="characters">Characters</option>
+                <option value="planets">Planets</option>
+                <option value="species">Species</option>
+            </select>
+            in this film
+            <ul class="film-related-entity-list" id="film-related-entity-list"></ul>
+        </div>
+    </div>
+</body>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+</html>
