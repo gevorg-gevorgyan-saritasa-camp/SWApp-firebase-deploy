@@ -35,19 +35,17 @@ window.onload = () => {
   loadStartPage();
 };
 
-signOutButton?.addEventListener('click', signOut);
+signOutButton?.addEventListener('click', () => {
+  signOut()
+      .then(() => window.location.href = Paths.MainPagePath)
+      .catch(err => alert(`Sign Out Error! ${err}`))
+});
 
 nextPageButton?.addEventListener('click', () => {
-  if (prevPageButton?.disabled) {
-    prevPageButton.disabled = false;
-  }
   loadPage(Navigation.NextPage);
 });
 
 prevPageButton?.addEventListener('click', () => {
-  if (nextPageButton?.disabled) {
-    nextPageButton.disabled = false;
-  }
   loadPage(Navigation.PrevPage);
 });
 
@@ -116,10 +114,8 @@ function loadPage(direction : string) : void {
  *
  * @param {Array<FilmDto>} rowsData, Received films data.
  */
-function fillTable(rowsData : Array<FilmDto>) : void {
-  while (tableBody?.firstChild) {
-    tableBody.removeChild(tableBody.firstChild); //Removing all existing rows
-  }
+function fillTable(rowsData : FilmDto[]) : void {
+  tableBody!.innerHTML = '';
 
   rowsData.forEach(film => {
     const episode = document.createElement('td');
@@ -177,6 +173,4 @@ function loadStartPage() : void {
     .then(pageData => {
       fillTable(pageData);
     });
-  prevPageButton.disabled = true;
-  nextPageButton.disabled = false;
 }

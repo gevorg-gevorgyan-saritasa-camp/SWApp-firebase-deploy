@@ -3,9 +3,10 @@ import {signOut} from '../../firebase/auth';
 import {authUiFilmPage} from '../authUi';
 import '../../css/film.css'
 import '../../css/header.css'
+import {Paths} from "../values/values";
 
-const params : URLSearchParams = new URLSearchParams(window.location.search);
-const currentFilmId : number = Number(params.get('id'));
+const params = new URLSearchParams(window.location.search);
+const currentFilmId = Number(params.get('id'));
 
 const currentFilm = filmService.getSingleFilm(currentFilmId);
 const entitiesSelector= <HTMLSelectElement>document.getElementById('film-related-entities-selector');
@@ -17,7 +18,11 @@ window.onload = () => {
   showFilmInfo();
 };
 
-signOutButton?.addEventListener('click',  signOut);
+signOutButton?.addEventListener('click',  () => {
+    signOut()
+        .then(() => window.location.href = Paths.MainPagePath)
+        .catch(err => alert(`Sign Out Error! ${err}`))
+});
 
 /**
  * Showing information about the current film.
@@ -45,7 +50,7 @@ entitiesSelector?.addEventListener('change', () => {
 /**
  * Showing the list of a selected related entity items.
  *
- * @param {string} selectedCollectionName, Name of the selected related entity (collection in db).
+ * @param {string} selectedCollectionName Name of the selected related entity (collection in db).
  */
 function showRelatedEntityList(selectedCollectionName : string) : void {
   while (relatedEntityList?.firstChild) {
@@ -59,6 +64,7 @@ function showRelatedEntityList(selectedCollectionName : string) : void {
         ? 'people'
         : selectedCollectionName,
             // @ts-ignore
+            //TypeScript does not allow using a string as a key for FilmDto
       currentFilmData[selectedCollectionName])
         .then(relatedEntityPayload => {
           relatedEntityPayload.forEach(item => {

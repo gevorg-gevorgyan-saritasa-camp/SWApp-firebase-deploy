@@ -6,11 +6,9 @@ import {
   DEFAULT_JOIN_ARRAY_SIZE
 } from '../js/values/values';
 import firebaseApp from './firebase';
-import FilmDto from "../DTOs/filmDto";
-import firebase from "firebase";
-import CharacterDto from "../DTOs/characterDto";
-import PlanetDto from "../DTOs/planetDto";
-import SpeciesDto from "../DTOs/speciesDto";
+import FilmDto from '../DTOs/filmDto';
+import firebase from 'firebase';
+import {SortOptions} from '../types/types';
 
 class FilmService {
   currentPageFilms: firebase.firestore.QuerySnapshot | undefined;
@@ -23,8 +21,8 @@ class FilmService {
    *
    * @return {Promise<*>} Returns promise with received films array.
    */
-  async getPage(sortOptions : {field: string, rule: string},
-                direction?: string | null, searchOption : string = '') : Promise<Array<FilmDto>> {
+  async getPage(sortOptions : SortOptions,
+                direction?: string | null, searchOption : string = '') : Promise<FilmDto[]> {
     //getting the next character after searchOption alphabetically. Improves the accuracy of the search
     const end : string = searchOption.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
     let pageFilms = <firebase.firestore.Query>firebaseApp.firestore().collection(FILMS_COLLECTION);
@@ -75,7 +73,7 @@ class FilmService {
    *
    * @return {Array<Film>} Films data array.
    */
-  extractFilmsData(films : firebase.firestore.QuerySnapshot) : Array<FilmDto> {
+  extractFilmsData(films : firebase.firestore.QuerySnapshot) : FilmDto[] {
     return films.docs.map(doc => doc.data().fields);
   }
 
@@ -100,8 +98,8 @@ class FilmService {
    * @param {Array<number>} relatedEntityIds, Array of related entity items ids.
    * @return {Promise<*[]>} Promise with related entity items array.
    */
-  async getRelatedEntityItems(entityCollectionName : string, relatedEntityIds : Array<number>) : Promise<Array<string>> {
-    const idsArray : Array<Array<number>> = [];
+  async getRelatedEntityItems(entityCollectionName : string, relatedEntityIds : Array<number>) : Promise<string[]> {
+    const idsArray : Array<number[]> = [];
     let relatedEntityArr : Array<firebase.firestore.DocumentSnapshot> = [];
 
     //Splitting the array, since firebase does not allow arrays longer than 10 in where 'in'
@@ -110,7 +108,7 @@ class FilmService {
     }
 
     for (const array of idsArray) {
-      let tmpArr = await firebaseApp.firestore().collection(entityCollectionName)
+      const tmpArr = await firebaseApp.firestore().collection(entityCollectionName)
         .where('pk', 'in', array)
         .get();
       relatedEntityArr = relatedEntityArr.concat(tmpArr.docs);
