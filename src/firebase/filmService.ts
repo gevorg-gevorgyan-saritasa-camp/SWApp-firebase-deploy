@@ -63,7 +63,7 @@ class FilmService {
         break;
     }
 
-    return this.extractFilmsData(<firebase.firestore.QuerySnapshot>this.currentPageFilms);
+    return this.getFilmsData(<firebase.firestore.QuerySnapshot>this.currentPageFilms);
   }
 
   /**
@@ -73,7 +73,7 @@ class FilmService {
    *
    * @return {Array<Film>} Films data array.
    */
-  extractFilmsData(films : firebase.firestore.QuerySnapshot) : FilmDto[] {
+  getFilmsData(films : firebase.firestore.QuerySnapshot) : FilmDto[] {
     return films.docs.map(doc => doc.data().fields);
   }
 

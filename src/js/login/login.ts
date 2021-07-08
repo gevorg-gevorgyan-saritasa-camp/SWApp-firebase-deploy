@@ -8,6 +8,5 @@ const signInButton = document.getElementById('sign-in-google-button');
 
 signInButton?.addEventListener('click', () => {
     singInWithGoogle()
-        .then(() => window.location.href = Paths.MainPagePath)
-        .catch(err => alert(`Sign In Error! ${err}`));
+        .then(() => window.location.href = Paths.MainPagePath);
 });

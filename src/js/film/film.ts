@@ -20,8 +20,7 @@ window.onload = () => {
 
 signOutButton?.addEventListener('click',  () => {
     signOut()
-        .then(() => window.location.href = Paths.MainPagePath)
-        .catch(err => alert(`Sign Out Error! ${err}`))
+        .then(() => window.location.href = Paths.MainPagePath);
 });
 
 /**

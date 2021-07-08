@@ -8,7 +8,7 @@ import {
 } from '../values/values';
 import {signOut} from '../../firebase/auth';
 import {authUiMainPage} from '../authUi';
-import {debounce} from '../debounce';
+import {debounce} from '../helpers/debounce';
 import FilmDto from "../../DTOs/filmDto";
 import '../../css/main.css'
 import '../../css/header.css'
@@ -37,8 +37,7 @@ window.onload = () => {
 
 signOutButton?.addEventListener('click', () => {
   signOut()
-      .then(() => window.location.href = Paths.MainPagePath)
-      .catch(err => alert(`Sign Out Error! ${err}`))
+      .then(() => window.location.href = Paths.MainPagePath);
 });
 
 nextPageButton?.addEventListener('click', () => {
@@ -126,7 +125,7 @@ function fillTable(rowsData : FilmDto[]) : void {
 
     info.className = 'info-cell';
     info.innerHTML = 'More info...';
-    info.addEventListener('click', moreInfo);
+    info.addEventListener('click', getMoreInfo);
 
     episode.innerHTML = String(film.episode_id);
     title.innerHTML = film.title;
@@ -152,7 +151,7 @@ function fillTable(rowsData : FilmDto[]) : void {
  *
  * @param {Event} e, Event object (row as a target).
  */
-function moreInfo(e: Event) {
+function getMoreInfo(e: Event) {
   const target = <Element>e.target;
   if (localStorage.getItem('token')) {
     const params = new URLSearchParams();
