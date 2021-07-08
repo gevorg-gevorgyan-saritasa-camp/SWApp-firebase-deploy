@@ -9,12 +9,12 @@
 <body>
     <header>
         <h1>SW Films</h1>
-        <div id="auth-block" class="authentication_block">
+        <div id="auth-block" class="authentication_block hidden">
             <img alt="User" src="https://img.icons8.com/ios-glyphs/30/000000/user--v1.png"/>
             <span class="username" id="username"></span>
             <button type="button" id="sign-out-button">Sign Out</button>
         </div>
-        <div id="no-auth-block" class="authentication_block">
+        <div id="no-auth-block" class="authentication_block hidden">
             <a href="login.html">Sign In</a>
         </div>
     </header>
@@ -22,8 +22,13 @@
         <label for="search-field">Search:</label>
         <input type="search" id="search-field" placeholder="Enter title...">
     </div>
-    <table class="films-table">
-        <thead>
+    <div class="main-content">
+        <button class="films-management-button" id="add-film-button">
+            <img alt="Add" src="https://img.icons8.com/ios-glyphs/30/000000/plus-math.png"/>
+            Add Film
+        </button>
+        <table class="films-table">
+            <thead>
             <tr>
                 <th class="episode-cell" id="episode_id">
                     Episode #
@@ -53,12 +58,14 @@
                         <button name="desc-table-sort-button">&#8595;</button>
                     </div>
                 </th>
+                <th></th>
             </tr>
-        </thead>
-        <tbody class="table-body" id="films-table-body">
+            </thead>
+            <tbody class="table-body" id="films-table-body">
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
     <div class="pagination-block">
         <button id="prev-page-button">&laquo;</button>
         <button id="next-page-button">&raquo;</button>

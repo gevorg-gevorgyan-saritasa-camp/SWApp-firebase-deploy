@@ -5,6 +5,7 @@ import {
   SortOptions,
   Paths,
   DEBOUNCE_DELAY_TIME,
+  HTMLFilmCellsTemplates,
 } from '../values/values';
 import {signOut} from '../../firebase/auth';
 import {authUiMainPage} from '../authUi';
@@ -31,7 +32,6 @@ const nextPageButton = <HTMLButtonElement>document.getElementById('next-page-but
 const prevPageButton = <HTMLButtonElement>document.getElementById('prev-page-button');
 
 window.onload = () => {
-  authUiMainPage(authBlock, noAuthBlock, document.getElementById('username') as HTMLSpanElement);
   loadStartPage();
 };
 
@@ -121,11 +121,18 @@ function fillTable(rowsData : FilmDto[]) : void {
     const title = document.createElement('td');
     const director = document.createElement('td');
     const releaseDate = document.createElement('td');
-    const info = document.createElement('td');
+    const filmInfo = document.createElement('td');
+    const filmEdit = document.createElement('td');
+    const filmDelete = document.createElement('td');
 
-    info.className = 'info-cell';
-    info.innerHTML = 'More info...';
-    info.addEventListener('click', getMoreInfo);
+    filmInfo.innerHTML = HTMLFilmCellsTemplates.MoreInfoCell;
+    filmInfo.addEventListener('click', getMoreInfo);
+
+    filmEdit.innerHTML = HTMLFilmCellsTemplates.FilmEditCell;
+    filmEdit.addEventListener('click', editFilm);
+
+    filmDelete.innerHTML = HTMLFilmCellsTemplates.FilmDeleteCell;
+    filmInfo.addEventListener('click', deleteFilm);
 
     episode.innerHTML = String(film.episode_id);
     title.innerHTML = film.title;
@@ -140,7 +147,9 @@ function fillTable(rowsData : FilmDto[]) : void {
     row.appendChild(title);
     row.appendChild(director);
     row.appendChild(releaseDate);
-    row.appendChild(info);
+    row.appendChild(filmInfo);
+    row.appendChild(filmEdit);
+    row.appendChild(filmDelete);
 
     tableBody?.appendChild(row);
   });
@@ -163,6 +172,15 @@ function getMoreInfo(e: Event) {
 
 }
 
+function editFilm(e: Event) {
+
+}
+
+function deleteFilm(e: Event) {
+
+}
+
+
 /**
  * Loading start page on the first page visit or after sorting.
  *
@@ -171,5 +189,7 @@ function loadStartPage() : void {
   filmService.getPage(sortOptions)
     .then(pageData => {
       fillTable(pageData);
+      authUiMainPage(document.getElementsByClassName('films-management-button'), authBlock,
+          noAuthBlock, document.getElementById('username') as HTMLSpanElement);
     });
 }

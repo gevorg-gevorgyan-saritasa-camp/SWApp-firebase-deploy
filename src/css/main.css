@@ -1,7 +1,5 @@
 .films-table {
-    margin-top: 100px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 20px;
 }
 
 .films-table th {
@@ -34,11 +32,14 @@
     font-size: 1.2em;
 }
 
-.info-cell {
+.more-info-button{
     border: 3px dotted cadetblue;
+    font-size: 1.2em;
+    background-color: white;
+    padding: 10px;
 }
 
-.info-cell:hover {
+.more-info-button:hover {
     cursor: pointer;
     border-style: solid;
 }
@@ -67,4 +68,31 @@
     background-color: cadetblue;
     color: white;
     cursor: pointer;
+}
+
+.films-management-button {
+    background-color: white;
+    border: 1px solid cadetblue;
+    color: black;
+    height: min-content;
+    font-size: 1.4em;
+    padding: 10px;
+    display: flex;
+}
+
+.films-management-button:hover {
+    cursor: pointer;
+    background-color: cadetblue;
+    color: white;
+}
+
+.films-management-button img {
+    margin-right: 10px;
+}
+
+.main-content {
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 80px;
 }
