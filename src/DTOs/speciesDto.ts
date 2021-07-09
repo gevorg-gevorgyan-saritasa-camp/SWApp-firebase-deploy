@@ -1,5 +1,6 @@
 //A Star Wars species
 interface SpeciesDto {
+    id:number;
     //Species's name
     name: string;
 

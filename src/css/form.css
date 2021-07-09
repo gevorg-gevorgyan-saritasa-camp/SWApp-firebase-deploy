@@ -1,0 +1,17 @@
+.film-form div {
+    margin-top: 2em;
+}
+
+.form-block {
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5em;
+}
+
+.film-form button {
+    font-size: 1.2em;
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+}

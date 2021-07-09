@@ -1,5 +1,6 @@
 //A Star Wars planet
 interface PlanetDto {
+    id: number;
     //Planet's name
     name: string;
 

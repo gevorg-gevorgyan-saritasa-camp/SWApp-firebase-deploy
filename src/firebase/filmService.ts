@@ -3,12 +3,12 @@ import {
   DEFAULT_PAGE_SIZE,
   Navigation,
   SearchOptions,
-  DEFAULT_JOIN_ARRAY_SIZE
+  DEFAULT_JOIN_ARRAY_SIZE, FilmFields,
 } from '../js/values/values';
 import firebaseApp from './firebase';
 import FilmDto from '../DTOs/filmDto';
 import firebase from 'firebase';
-import {SortOptions} from '../types/types';
+import {FilmRelatedEntities, SortOptions} from '../types/types';
 
 class FilmService {
   currentPageFilms: firebase.firestore.QuerySnapshot | undefined;
@@ -98,7 +98,7 @@ class FilmService {
    * @param {Array<number>} relatedEntityIds, Array of related entity items ids.
    * @return {Promise<*[]>} Promise with related entity items array.
    */
-  async getRelatedEntityItems(entityCollectionName : string, relatedEntityIds : Array<number>) : Promise<string[]> {
+  async getFilmRelatedEntityItems(entityCollectionName : string, relatedEntityIds : Array<number>) : Promise<string[]> {
     const idsArray : Array<number[]> = [];
     let relatedEntityArr : Array<firebase.firestore.DocumentSnapshot> = [];
 
@@ -117,6 +117,33 @@ class FilmService {
     return relatedEntityArr.map(item => {
       return item.data()?.fields.name;
     })
+  }
+
+  async getAllRelatedEntities() : Promise<FilmRelatedEntities> {
+    const entitiesItems = {} as FilmRelatedEntities;
+
+    entitiesItems.characters = await this.getEntity(FilmFields.characters);
+    entitiesItems.vehicles = await this.getEntity(FilmFields.vehicles);
+    entitiesItems.planets = await this.getEntity(FilmFields.planets);
+    entitiesItems.species = await this.getEntity(FilmFields.species);
+    entitiesItems.starships = await this.getEntity(FilmFields.starships);
+
+    return entitiesItems;
+  }
+
+  async getEntity(collectionName : string) : Promise<any[]> {
+    let items = await firebaseApp.firestore().collection(collectionName).get();
+
+    return items.docs.map(item => {
+      let obj = item.data().fields;
+      obj.id = item.data().pk;
+      return obj;
+    });
+  }
+
+  async addFilm(filmData : FilmDto) {
+    await firebaseApp.firestore().collection(FILMS_COLLECTION)
+        .add({fields: filmData});
   }
 }
 

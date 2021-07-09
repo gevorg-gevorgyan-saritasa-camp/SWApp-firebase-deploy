@@ -44,3 +44,23 @@ header h1 {
 .hidden {
     display: none;
 }
+
+.link-back-block {
+    display: flex;
+    width: min-content;
+    padding: 5px;
+    margin: 30px 30px 0 30px;
+    border: 3px dotted cadetblue;
+}
+
+.link-back-block:hover {
+    cursor: pointer;
+    border-style: solid;
+}
+
+.link-back-block a {
+    text-decoration: none;
+    margin-left: 10px;
+    color: black;
+    font-size: 2.0em;
+}

@@ -1,5 +1,6 @@
 //A Star Wars character
 interface CharacterDto {
+    id: number;
     //Character's name
     name: string;
 

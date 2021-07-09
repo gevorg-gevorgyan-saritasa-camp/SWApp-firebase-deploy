@@ -59,7 +59,7 @@ function showRelatedEntityList(selectedCollectionName : string) : void {
 
   currentFilm
     .then(currentFilmData => {
-        filmService.getRelatedEntityItems(selectedCollectionName === 'characters'
+        filmService.getFilmRelatedEntityItems(selectedCollectionName === 'characters'
         ? 'people'
         : selectedCollectionName,
             // @ts-ignore

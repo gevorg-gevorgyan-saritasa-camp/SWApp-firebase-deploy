@@ -164,7 +164,7 @@ function getMoreInfo(e: Event) {
   const target = <Element>e.target;
   if (localStorage.getItem('token')) {
     const params = new URLSearchParams();
-    params.append('id', <string>target?.parentElement?.id);
+    params.append('id', <string>target?.parentElement?.parentElement?.id);
     window.location.href = `${Paths.FilmPagePath}?${params.toString()}`;
   } else {
     window.location.href = Paths.LoginPagePath;
@@ -173,7 +173,7 @@ function getMoreInfo(e: Event) {
 }
 
 function editFilm(e: Event) {
-
+  window.location.href = Paths.FormPagePath;
 }
 
 function deleteFilm(e: Event) {
