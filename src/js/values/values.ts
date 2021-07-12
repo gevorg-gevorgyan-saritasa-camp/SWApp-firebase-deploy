@@ -2,13 +2,14 @@ export const DEFAULT_PAGE_SIZE = 2;
 export const FILMS_COLLECTION = 'films';
 export const DEFAULT_JOIN_ARRAY_SIZE = 10;
 export const DEBOUNCE_DELAY_TIME = 500;
+export const FILM_MODEL = 'resources.film';
 
 export const HTMLFilmCellsTemplates = {
   FilmEditCell: '<button title="Edit Film" class="films-management-button">' +
-      '<img alt="Edit" src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png"/>' +
+      '<img class="button-image" alt="Edit" src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png"/>' +
       '</button>',
   FilmDeleteCell: '<button title="Delete Film" class="films-management-button">' +
-      '<img alt="Delete" src="https://img.icons8.com/ios-glyphs/30/000000/delete-forever.png"/>' +
+      '<img class="button-image" alt="Delete" src="https://img.icons8.com/ios-glyphs/30/000000/delete-forever.png"/>' +
       '</button>',
   MoreInfoCell: '<button class="more-info-button">More info...</button>'
 };

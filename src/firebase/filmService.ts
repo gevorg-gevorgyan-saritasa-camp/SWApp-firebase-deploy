@@ -3,7 +3,7 @@ import {
   DEFAULT_PAGE_SIZE,
   Navigation,
   SearchOptions,
-  DEFAULT_JOIN_ARRAY_SIZE, FilmFields,
+  DEFAULT_JOIN_ARRAY_SIZE, FilmFields, FILM_MODEL,
 } from '../js/values/values';
 import firebaseApp from './firebase';
 import FilmDto from '../DTOs/filmDto';
@@ -74,7 +74,7 @@ class FilmService {
    * @return {Array<Film>} Films data array.
    */
   getFilmsData(films : firebase.firestore.QuerySnapshot) : FilmDto[] {
-    return films.docs.map(doc => doc.data().fields);
+    return films.docs.map(doc => doc.data() as FilmDto);
   }
 
   /**
@@ -88,7 +88,7 @@ class FilmService {
       .where(SearchOptions.FilmEpisodeField, '==', currentFilmId)
       .get();
 
-    return film.docs[0].data().fields;
+    return film.docs[0].data() as FilmDto;
   }
 
   /**
@@ -141,9 +141,38 @@ class FilmService {
     });
   }
 
-  async addFilm(filmData : FilmDto) {
+  async addFilm(filmData : FilmDto) : Promise<void> {
+    filmData.pk = await this.getLastFilmId() + 1;
+    filmData.fields.episode_id = filmData.pk;
+    filmData.fields.edited = new Date().toISOString();
+    filmData.fields.created = new Date().toISOString();
+    filmData.model = FILM_MODEL;
     await firebaseApp.firestore().collection(FILMS_COLLECTION)
-        .add({fields: filmData});
+        .add(filmData);
+  }
+
+  async editFilm(filmData : FilmDto, currentFilmId: number) : Promise<void> {
+    filmData.fields.edited = new Date().toISOString();
+    const currentFilm = await firebaseApp.firestore().collection(FILMS_COLLECTION)
+        .where(SearchOptions.FilmEpisodeField, '==', currentFilmId)
+        .get();
+    await firebaseApp.firestore().collection(FILMS_COLLECTION).doc(currentFilm.docs[0].id)
+        .set(filmData, {merge: true});
+  }
+
+  async deleteFilm(currentFilmId : number) : Promise<void> {
+    const currentFilm = await firebaseApp.firestore().collection(FILMS_COLLECTION)
+        .where(SearchOptions.FilmEpisodeField, '==', currentFilmId)
+        .get();
+    await firebaseApp.firestore().collection(FILMS_COLLECTION).doc(currentFilm.docs[0].id)
+        .delete();
+  }
+
+  async getLastFilmId() : Promise<number> {
+    const films = await firebaseApp.firestore().collection(FILMS_COLLECTION)
+        .get();
+
+    return films.docs[(films.docs.length - 1)].data().pk;
   }
 }
 

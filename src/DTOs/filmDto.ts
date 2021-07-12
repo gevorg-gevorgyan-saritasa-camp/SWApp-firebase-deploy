@@ -1,43 +1,50 @@
 //A Star Wars film
 interface FilmDto {
-    //Film's title
-    title: string;
 
-    //Film's episode id (star wars episode 6 ....)
-    episode_id: number;
+    fields : {
+        //Film's title
+        title: string;
 
-    //Date when film was released
-    release_date: string;
+        //Film's episode id (star wars episode 6 ....)
+        episode_id: number;
 
-    //Films opening text (Example A long time ago in...)
-    opening_crawl: string;
+        //Date when film was released
+        release_date: string;
 
-    //Date when record was created
-    created: string;
+        //Films opening text (Example A long time ago in...)
+        opening_crawl: string;
 
-    //Date when record was edited last time
-    edited: string;
+        //Date when record was created
+        created: string;
 
-    //Film's director
-    director: string;
+        //Date when record was edited last time
+        edited: string;
 
-    //Film's producer(s)
-    producer: string;
+        //Film's director
+        director: string;
 
-    //Array of characters id
-    characters: number[];
+        //Film's producer(s)
+        producer: string;
 
-    //Array of planets id
-    planets: number[];
+        //Array of characters id
+        characters: number[];
 
-    //Array of species id
-    species: number[];
+        //Array of planets id
+        planets: number[];
 
-    //Array of vehicles id
-    vehicles: number[];
+        //Array of species id
+        species: number[];
 
-    //Array of starships id
-    starships: number[];
+        //Array of vehicles id
+        vehicles: number[];
+
+        //Array of starships id
+        starships: number[];
+    }
+
+    model: string;
+
+    pk: number;
 }
 
 export default FilmDto;

@@ -29,11 +29,11 @@ signOutButton?.addEventListener('click',  () => {
 function showFilmInfo() : void {
   currentFilm
     .then(currentFilmData=> {
-      document.getElementById('film-title')!.innerHTML = `${currentFilmData.title} (Episode ${currentFilmId})`;
-      document.getElementById('film-director')!.innerHTML = `Director: ${currentFilmData.director}`;
-      document.getElementById('film-producer')!.innerHTML = `Producer: ${currentFilmData.producer}`;
-      document.getElementById('film-release-date')!.innerHTML = `Release Date: ${currentFilmData.release_date}`;
-      document.getElementById('film-opening-crawl')!.innerHTML = `Opening crawl: ${currentFilmData.opening_crawl}`;
+      document.getElementById('film-title')!.innerHTML = `${currentFilmData.fields.title} (Episode ${currentFilmId})`;
+      document.getElementById('film-director')!.innerHTML = `Director: ${currentFilmData.fields.director}`;
+      document.getElementById('film-producer')!.innerHTML = `Producer: ${currentFilmData.fields.producer}`;
+      document.getElementById('film-release-date')!.innerHTML = `Release Date: ${currentFilmData.fields.release_date}`;
+      document.getElementById('film-opening-crawl')!.innerHTML = `Opening crawl: ${currentFilmData.fields.opening_crawl}`;
 
       const selectedCollectionName : string = (entitiesSelector[entitiesSelector.selectedIndex] as HTMLOptionElement).value;
 
@@ -64,7 +64,7 @@ function showRelatedEntityList(selectedCollectionName : string) : void {
         : selectedCollectionName,
             // @ts-ignore
             //TypeScript does not allow using a string as a key for FilmDto
-      currentFilmData[selectedCollectionName])
+      currentFilmData.fields[selectedCollectionName])
         .then(relatedEntityPayload => {
           relatedEntityPayload.forEach(item => {
             const listEl = document.createElement('li');

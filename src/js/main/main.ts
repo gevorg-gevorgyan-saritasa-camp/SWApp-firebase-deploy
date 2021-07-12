@@ -126,22 +126,22 @@ function fillTable(rowsData : FilmDto[]) : void {
     const filmDelete = document.createElement('td');
 
     filmInfo.innerHTML = HTMLFilmCellsTemplates.MoreInfoCell;
-    filmInfo.addEventListener('click', getMoreInfo);
+    filmInfo.addEventListener('click', handleRowButtonClick);
 
     filmEdit.innerHTML = HTMLFilmCellsTemplates.FilmEditCell;
-    filmEdit.addEventListener('click', editFilm);
+    filmEdit.addEventListener('click', handleRowButtonClick);
 
     filmDelete.innerHTML = HTMLFilmCellsTemplates.FilmDeleteCell;
-    filmInfo.addEventListener('click', deleteFilm);
+    filmDelete.addEventListener('click', deleteFilm);
 
-    episode.innerHTML = String(film.episode_id);
-    title.innerHTML = film.title;
-    director.innerHTML = film.director;
-    releaseDate.innerHTML = film.release_date;
+    episode.innerHTML = String(film.fields.episode_id);
+    title.innerHTML = film.fields.title;
+    director.innerHTML = film.fields.director;
+    releaseDate.innerHTML = film.fields.release_date;
 
     const row = document.createElement('tr');
 
-    row.id = String(film.episode_id);
+    row.id = String(film.fields.episode_id);
 
     row.appendChild(episode);
     row.appendChild(title);
@@ -160,24 +160,26 @@ function fillTable(rowsData : FilmDto[]) : void {
  *
  * @param {Event} e, Event object (row as a target).
  */
-function getMoreInfo(e: Event) {
+function handleRowButtonClick(e: Event) {
   const target = <Element>e.target;
   if (localStorage.getItem('token')) {
     const params = new URLSearchParams();
     params.append('id', <string>target?.parentElement?.parentElement?.id);
-    window.location.href = `${Paths.FilmPagePath}?${params.toString()}`;
+    if (target.getAttribute('class') === 'more-info-button') {
+      window.location.href = `${Paths.FilmPagePath}?${params.toString()}`;
+    } else {
+      window.location.href = `${Paths.FormPagePath}?${params.toString()}`;
+    }
   } else {
     window.location.href = Paths.LoginPagePath;
   }
-
-}
-
-function editFilm(e: Event) {
-  window.location.href = Paths.FormPagePath;
 }
 
 function deleteFilm(e: Event) {
+  const target = <Element>e.target;
 
+  filmService.deleteFilm(Number(target.parentElement?.parentElement?.id))
+      .then(() => window.location.reload());
 }
 
 
