@@ -1,34 +1,34 @@
-//A Star Wars character
+/** A Star Wars character */
 interface CharacterDto {
     id: number;
-    //Character's name
+    /** Character's name */
     name: string;
 
-    //Character's homeworld id
+    /** Character's homeworld id */
     homeworld: number;
 
-    //Date of birth(BBY format)
+    /** Date of birth(BBY format) */
     birth_date: string;
 
-    //Character's gender
+    /** Character's gender */
     gender: string;
 
-    //Date when record was created
+    /** Date when record was created */
     created:string;
 
-    //Date when record was edited last time
+    /** Date when record was edited last time */
     edited: string;
 
-    //Character's mass
+    /** Character's mass */
     mass: string;
 
-    //Character's height
+    /** Character's height */
     height: string;
 
-    //Character's skin color
+    /** Character's skin color */
     skin_color: string;
 
-    //Character's eye color
+    /** Character's eye color */
     eye_color: string;
 }
 

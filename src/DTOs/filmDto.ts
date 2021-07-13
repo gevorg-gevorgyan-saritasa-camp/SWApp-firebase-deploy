@@ -1,44 +1,46 @@
-//A Star Wars film
+/**
+ * A Star Wars film
+ */
 interface FilmDto {
 
     fields : {
-        //Film's title
+        /** Film's title */
         title: string;
 
-        //Film's episode id (star wars episode 6 ....)
+        /** Film's episode id (star wars episode 6 ....) */
         episode_id: number;
 
-        //Date when film was released
+        /** Date when film was released */
         release_date: string;
 
-        //Films opening text (Example A long time ago in...)
+        /** Films opening text (Example A long time ago in...) */
         opening_crawl: string;
 
-        //Date when record was created
+        /** Date when record was created */
         created: string;
 
-        //Date when record was edited last time
+        /** Date when record was edited last time */
         edited: string;
 
-        //Film's director
+        /** Film's director */
         director: string;
 
-        //Film's producer(s)
+        /** Film's producer(s) */
         producer: string;
 
-        //Array of characters id
+        /** Array of characters id */
         characters: number[];
 
-        //Array of planets id
+        /** Array of planets id */
         planets: number[];
 
-        //Array of species id
+        /** Array of species id */
         species: number[];
 
-        //Array of vehicles id
+        /** Array of vehicles id */
         vehicles: number[];
 
-        //Array of starships id
+        /** Array of starships id */
         starships: number[];
     }
 

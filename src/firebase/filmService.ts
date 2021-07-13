@@ -96,9 +96,9 @@ class FilmService {
    *
    * @param {string} entityCollectionName, Name of related entity (collection in db).
    * @param {Array<number>} relatedEntityIds, Array of related entity items ids.
-   * @return {Promise<*[]>} Promise with related entity items array.
+   * @return {Promise<string[]>} Promise with related entity items array.
    */
-  async getFilmRelatedEntityItems(entityCollectionName : string, relatedEntityIds : Array<number>) : Promise<string[]> {
+  async getFilmRelatedEntityItems(entityCollectionName : string, relatedEntityIds : number[]) : Promise<string[]> {
     const idsArray : Array<number[]> = [];
     let relatedEntityArr : Array<firebase.firestore.DocumentSnapshot> = [];
 
@@ -119,6 +119,11 @@ class FilmService {
     })
   }
 
+  /**
+   * Function that gets arrays of all entities related to films.
+   *
+   * @return {Promise<FilmRelatedEntities>} Object that contains all arrays of related entities.
+   */
   async getAllRelatedEntities() : Promise<FilmRelatedEntities> {
     const entitiesItems = {} as FilmRelatedEntities;
 
@@ -131,6 +136,13 @@ class FilmService {
     return entitiesItems;
   }
 
+  /**
+   * Gets one entity from db.
+   *
+   * @param {string} collectionName Name of the entity (collection in db).
+   *
+   * @return {Promise<any[]>} Array of collection's items.
+   */
   async getEntity(collectionName : string) : Promise<any[]> {
     let items = await firebaseApp.firestore().collection(collectionName).get();
 
@@ -141,6 +153,12 @@ class FilmService {
     });
   }
 
+  /**
+   * Adds a new film to the collection.
+   *
+   * @param {FilmDto} filmData Data of the film to be added
+   *
+   */
   async addFilm(filmData : FilmDto) : Promise<void> {
     filmData.pk = await this.getLastFilmId() + 1;
     filmData.fields.episode_id = filmData.pk;
@@ -151,6 +169,12 @@ class FilmService {
         .add(filmData);
   }
 
+  /**
+   * Updates edited film in the collection.
+   *
+   * @param {FilmDto} filmData Data of the film to be updated
+   * @param {number} currentFilmId Film id.
+   */
   async editFilm(filmData : FilmDto, currentFilmId: number) : Promise<void> {
     filmData.fields.edited = new Date().toISOString();
     const currentFilm = await firebaseApp.firestore().collection(FILMS_COLLECTION)
@@ -160,6 +184,11 @@ class FilmService {
         .set(filmData, {merge: true});
   }
 
+  /**
+   * Removes film from the collection.
+   *
+   * @param {number} currentFilmId Film id.
+   */
   async deleteFilm(currentFilmId : number) : Promise<void> {
     const currentFilm = await firebaseApp.firestore().collection(FILMS_COLLECTION)
         .where(SearchOptions.FilmEpisodeField, '==', currentFilmId)
@@ -168,6 +197,11 @@ class FilmService {
         .delete();
   }
 
+  /**
+   * Gets id of a last film in the collection.
+   *
+   * @return {Promise<number>} Last film id.
+   */
   async getLastFilmId() : Promise<number> {
     const films = await firebaseApp.firestore().collection(FILMS_COLLECTION)
         .get();

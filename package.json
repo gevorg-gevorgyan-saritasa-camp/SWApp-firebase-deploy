@@ -29,6 +29,8 @@
   "dependencies": {
     "firebase": "^8.6.8",
     "firebase-admin": "^9.10.0",
-    "firestore-export-import": "^0.15.0"
+    "firestore-export-import": "^0.15.0",
+    "metro4": "^4.4.3",
+    "tingle.js": "^0.16.0"
   }
 }

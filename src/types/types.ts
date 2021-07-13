@@ -3,7 +3,6 @@ import PlanetDto from "../DTOs/planetDto";
 import VehicleDto from "../DTOs/vehicleDto";
 import SpeciesDto from "../DTOs/speciesDto";
 import StarshipDto from "../DTOs/starshipDto";
-import FilmDto from "../DTOs/filmDto";
 
 export type SortOptions = {
     field : string;

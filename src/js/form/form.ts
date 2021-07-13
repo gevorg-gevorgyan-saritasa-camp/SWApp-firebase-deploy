@@ -36,15 +36,20 @@ window.onload = () => {
                 for (const element of filmForm.elements) {
                     element.addEventListener('change', handleFieldChange);
                 }
-                filmForm.addEventListener('submit', editFilm);
+                filmForm.addEventListener('submit', sendFilmDataToEdit);
                 fillForm();
             } else {
-                filmForm.addEventListener('submit', addFilm);
+                filmForm.addEventListener('submit', sendFilmDataToAdd);
             }
         })
 }
 
-function addFilm(e: Event) {
+/**
+ * The function collects the form data into an object and calls the method to add it to the db.
+ *
+ * @param {Event} e Form submit event.
+ */
+function sendFilmDataToAdd(e: Event) : void {
     e.preventDefault();
     const formData = new FormData(filmForm);
     const film : Partial<FilmDto> = Object.fromEntries(formData.entries());
@@ -66,8 +71,13 @@ function addFilm(e: Event) {
         .then(() => window.location.href = Paths.MainPagePath);
 }
 
+/**
+ * Function fills multiple selects on the page.
+ * @param {HTMLSelectElement} selectElem Select to fill.
+ * @param optionsArr Array of select options.
+ */
 function fillMultipleSelect(selectElem : HTMLSelectElement, optionsArr : CharacterDto[] | VehicleDto[] | SpeciesDto[]
-                            | StarshipDto[] | PlanetDto[]) {
+                            | StarshipDto[] | PlanetDto[]) : void {
     optionsArr.forEach(item => {
         let option = document.createElement('option');
         option.value = String(item.id);
@@ -82,7 +92,7 @@ function fillMultipleSelect(selectElem : HTMLSelectElement, optionsArr : Charact
     })
 }
 
-function editFilm(e: Event) {
+function sendFilmDataToEdit(e: Event) : void {
     e.preventDefault();
     const filmData = {fields: {}} as FilmDto;
 
@@ -91,10 +101,14 @@ function editFilm(e: Event) {
         filmData.fields[key as keyof FilmDto] = changedFields.get(key);
     }
 
-    filmService.editFilm(filmData, currentFilmId);
+    filmService.editFilm(filmData, currentFilmId)
+        .then(() => window.location.href = Paths.MainPagePath);
 }
 
-function fillForm() {
+/**
+ * Function that fills form (only when editing a film).
+ */
+function fillForm() : void {
     filmService.getSingleFilm(currentFilmId)
         .then(currentFilmData => {
             let fieldName = '';
@@ -113,7 +127,11 @@ function fillForm() {
         })
 }
 
-function handleFieldChange(e: Event) {
+/**
+ * The function tracks all changes to the film fields and adds changed to the Map.
+ * @param {Event} e Change event.
+ */
+function handleFieldChange(e: Event) : void {
     const target = e.target as HTMLSelectElement | HTMLInputElement;
 
     if (target.type === 'select-multiple') {

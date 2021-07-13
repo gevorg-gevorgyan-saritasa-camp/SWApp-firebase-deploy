@@ -156,11 +156,12 @@ function fillTable(rowsData : FilmDto[]) : void {
 }
 
 /**
- * Redirect to film page or login page, depending on user's authentication status.
+ * Redirect to film page or form page, depending on button that is clicked. If user is not authenticated -
+ * redirects to login page.
  *
- * @param {Event} e, Event object (row as a target).
+ * @param {Event} e, Event object.
  */
-function handleRowButtonClick(e: Event) {
+function handleRowButtonClick(e: Event) : void {
   const target = <Element>e.target;
   if (localStorage.getItem('token')) {
     const params = new URLSearchParams();
@@ -175,7 +176,11 @@ function handleRowButtonClick(e: Event) {
   }
 }
 
-function deleteFilm(e: Event) {
+/**
+ * Removes film, when delete button is clicked.
+ * @param {Event} e, Event object.
+ */
+function deleteFilm(e: Event) : void {
   const target = <Element>e.target;
 
   filmService.deleteFilm(Number(target.parentElement?.parentElement?.id))
