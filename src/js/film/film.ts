@@ -62,8 +62,6 @@ function showRelatedEntityList(selectedCollectionName : string) : void {
         filmService.getFilmRelatedEntityItems(selectedCollectionName === 'characters'
         ? 'people'
         : selectedCollectionName,
-            // @ts-ignore
-            //TypeScript does not allow using a string as a key for FilmDto
       currentFilmData[selectedCollectionName])
         .then(relatedEntityPayload => {
           relatedEntityPayload.forEach(item => {

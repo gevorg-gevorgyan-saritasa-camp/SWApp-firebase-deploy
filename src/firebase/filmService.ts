@@ -130,11 +130,11 @@ class FilmService {
   async getAllRelatedEntities() : Promise<FilmRelatedEntities> {
     const entitiesItems = {} as FilmRelatedEntities;
 
-    entitiesItems.characters = await this.getEntity(FilmFields.characters);
-    entitiesItems.vehicles = await this.getEntity(FilmFields.vehicles);
-    entitiesItems.planets = await this.getEntity(FilmFields.planets);
-    entitiesItems.species = await this.getEntity(FilmFields.species);
-    entitiesItems.starships = await this.getEntity(FilmFields.starships);
+    entitiesItems.characters = await this.getFilmRelatedEntity(FilmFields.characters);
+    entitiesItems.vehicles = await this.getFilmRelatedEntity(FilmFields.vehicles);
+    entitiesItems.planets = await this.getFilmRelatedEntity(FilmFields.planets);
+    entitiesItems.species = await this.getFilmRelatedEntity(FilmFields.species);
+    entitiesItems.starships = await this.getFilmRelatedEntity(FilmFields.starships);
 
     return entitiesItems;
   }
@@ -146,7 +146,7 @@ class FilmService {
    *
    * @return {Promise<any[]>} Array of collection's items.
    */
-  async getEntity(collectionName : string) : Promise<EntityObject[]> {
+  async getFilmRelatedEntity(collectionName : string) : Promise<EntityObject[]> {
     let items = await firebaseApp.firestore().collection(collectionName).get();
 
     return items.docs.map(item => {

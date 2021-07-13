@@ -60,18 +60,15 @@ function sendFilmDataToAdd(e: Event) : void {
     e.preventDefault();
     const formData = new FormData(filmForm);
     const film : Partial<Film> = Object.fromEntries(formData.entries());
-    console.log(film);
     const filmData = new Film();
 
     for (const key in film) {
         const currentEl = document.getElementById(key) as HTMLInputElement | HTMLSelectElement;
         if (currentEl.type === 'select-multiple') {
             const selectedOptions = Array.prototype.slice.call((currentEl as HTMLSelectElement).selectedOptions);
-            // @ts-ignore
-            filmData[key as keyof Film] = selectedOptions.map(option => Number(option.value));
+            filmData[key] = selectedOptions.map(option => Number(option.value));
         } else {
-            // @ts-ignore
-            filmData[key as keyof Film] = currentEl.value;
+            filmData[key] = currentEl.value;
         }
     }
 
@@ -104,8 +101,7 @@ function sendFilmDataToEdit(e: Event) : void {
     filmService.getSingleFilm(currentFilmId)
         .then(filmDataPayload => {
             for (const key of changedFields.keys()) {
-                // @ts-ignore
-                filmDataPayload[key as keyof Film] = changedFields.get(key);
+                filmDataPayload[key] = changedFields.get(key);
             }
 
             Modal.confirm({
@@ -129,13 +125,11 @@ function fillForm() : void {
             for (const element of filmForm.elements) {
                 fieldName = element.getAttribute('name') as string;
                 if ((element as HTMLSelectElement | HTMLInputElement).type === 'select-multiple') {
-                    //@ts-ignore
-                    currentFilmData[fieldName as keyof Film].forEach(el => {
+                    currentFilmData[fieldName].forEach(el => {
                         (element as HTMLSelectElement).options.item(el)!.selected = true;
                     })
                 } else {
-                    // @ts-ignore
-                    (element as HTMLInputElement | HTMLSelectElement).value = currentFilmData[fieldName as keyof Film];
+                    (element as HTMLInputElement | HTMLSelectElement).value = currentFilmData[fieldName];
                 }
             }
         })
