@@ -70,7 +70,7 @@
     cursor: pointer;
 }
 
-.films-management-button, .films-management-link {
+.films-management-button {
     background-color: white;
     border: 1px solid cadetblue;
     color: black;
@@ -81,7 +81,7 @@
     width: max-content;
 }
 
-.films-management-button:hover, .films-management-link:hover {
+.films-management-button:hover {
     cursor: pointer;
     background-color: cadetblue;
     color: white;

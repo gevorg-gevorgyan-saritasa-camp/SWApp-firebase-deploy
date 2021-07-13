@@ -17,37 +17,28 @@
     <img alt="Go" src="https://img.icons8.com/material-sharp/24/000000/arrow-pointing-left.png"/>
     <a href="main.html">Back</a>
   </div>
-  <div class="form-block">
+  <div class="form-inner">
+    <h3>Film Form</h3>
     <form method="post" id="film-form" class="film-form">
-      <div>
         <label>Title <input required id="title" type="text" name="title"></label>
-      </div>
-      <div>
         <label>Director <input required id="director" type="text" name="director"></label>
-      </div>
-      <div>
         <label>Producer <input required id="producer" type="text" name="producer"></label>
-      </div>
-      <div>
         <label>Opening crawl <textarea required id="opening_crawl" type="text" name="opening_crawl"></textarea></label>
-      </div>
-      <div>
         <label>Release date <input required id="release_date" type="date" name="release_date"></label>
+      <div class="selects-block">
+        <label>Characters <select required size="4" id="characters" class="related-entity-select" multiple name="characters"></select></label>
       </div>
-      <div>
-        <label>Characters <select required size="3" id="characters" class="related-entity-select" multiple name="characters"></select></label>
+      <div class="selects-block">
+        <label>Species <select required size="4" id="species" class="related-entity-select" multiple name="species"></select></label>
       </div>
-      <div>
-        <label>Species <select required size="3" id="species" class="related-entity-select" multiple name="species"></select></label>
+      <div class="selects-block">
+        <label>Planets <select required size="4" id="planets" class="related-entity-select" multiple name="planets"></select></label>
       </div>
-      <div>
-        <label>Planets <select required size="3" id="planets" class="related-entity-select" multiple name="planets"></select></label>
+      <div class="selects-block">
+        <label>Vehicles <select required size="4" id="vehicles" class="related-entity-select" multiple name="vehicles"></select></label>
       </div>
-      <div>
-        <label>Vehicles <select required size="3" id="vehicles" class="related-entity-select" multiple name="vehicles"></select></label>
-      </div>
-      <div>
-        <label>Starships <select required size="3" id="starships" class="related-entity-select" multiple name="starships"></select></label>
+      <div class="selects-block">
+        <label>Starships <select required size="4" id="starships" class="related-entity-select" multiple name="starships"></select></label>
       </div>
       <button type="submit" id="film-form-button">Submit</button>
     </form>

@@ -1,6 +1,6 @@
 import filmService from '../../firebase/filmService';
 import {signOut} from '../../firebase/auth';
-import {authUiFilmPage} from '../authUi';
+import {authUi} from '../authUi';
 import '../../css/film.css'
 import '../../css/header.css'
 import {Paths} from "../values/values";
@@ -14,7 +14,7 @@ const relatedEntityList = document.getElementById('film-related-entity-list');
 const signOutButton = document.getElementById('sign-out-button');
 
 window.onload = () => {
-  authUiFilmPage(<HTMLSpanElement>document.getElementById('username'));
+  authUi(<HTMLSpanElement>document.getElementById('username'));
   showFilmInfo();
 };
 

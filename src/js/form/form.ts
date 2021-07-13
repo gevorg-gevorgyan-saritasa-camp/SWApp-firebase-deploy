@@ -9,6 +9,10 @@ import PlanetDto from "../../DTOs/planetDto";
 import FilmDto from "../../DTOs/filmDto";
 import {Paths} from "../values/values";
 
+import '../helpers/modal/modal.css'
+import {Modal} from '../helpers/modal/modal.js';
+import {authUi} from "../authUi";
+import {signOut} from "../../firebase/auth";
 
 const params = new URLSearchParams(window.location.search);
 const currentFilmId = Number(params.get('id'));
@@ -19,11 +23,13 @@ const vehiclesSelect = <HTMLSelectElement>document.getElementById('vehicles');
 const speciesSelect = <HTMLSelectElement>document.getElementById('species');
 const starshipsSelect = <HTMLSelectElement>document.getElementById('starships');
 const filmForm = <HTMLFormElement>document.getElementById('film-form');
+const signOutButton = document.getElementById('sign-out-button');
 
 const changedFields = new Map();
 
 
 window.onload = () => {
+    authUi(<HTMLSpanElement>document.getElementById('username'));
     filmService.getAllRelatedEntities()
         .then(entitiesPayload => {
             fillMultipleSelect(charactersSelect, entitiesPayload.characters);
@@ -43,6 +49,11 @@ window.onload = () => {
             }
         })
 }
+
+signOutButton?.addEventListener('click',  () => {
+    signOut()
+        .then(() => window.location.href = Paths.MainPagePath);
+});
 
 /**
  * The function collects the form data into an object and calls the method to add it to the db.
@@ -101,8 +112,14 @@ function sendFilmDataToEdit(e: Event) : void {
         filmData.fields[key as keyof FilmDto] = changedFields.get(key);
     }
 
-    filmService.editFilm(filmData, currentFilmId)
-        .then(() => window.location.href = Paths.MainPagePath);
+    Modal.confirm({
+        title: 'Edit Dialog',
+        message: 'Are you sure you want to edit this film?',
+        onConfirm: function() {
+            filmService.editFilm(filmData, currentFilmId)
+                .then(() => window.location.href = Paths.MainPagePath);
+        }
+    });
 }
 
 /**

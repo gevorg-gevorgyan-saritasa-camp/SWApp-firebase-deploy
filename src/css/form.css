@@ -1,17 +1,64 @@
-.film-form div {
-    margin-top: 2em;
-}
-
-.form-block {
-    width: max-content;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5em;
-}
-
-.film-form button {
-    font-size: 1.2em;
-    margin-top: 20px;
+.form-inner {
+    padding: 50px;
+    width: 40em;
     margin-right: auto;
     margin-left: auto;
+}
+.form-inner input, .form-inner textarea, .form-inner select {
+    display: block;
+    width: 90%;
+    padding: 0 20px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    background: #E9EFF6;
+    line-height: 40px;
+    border-width: 0;
+    border-radius: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+.form-inner button[type="submit"] {
+    background-color: white;
+    border: 1px solid cadetblue;
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+    margin-right: 50px;
+    height: min-content;
+    font-size: 1.4em;
+    width: 100%;
+}
+
+.form-inner button[type="submit"]:hover {
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+    background-color: cadetblue;
+    color: white;
+}
+
+.form-inner textarea {
+    resize: none;
+    line-height: 1.5;
+    height: 10em;
+}
+.form-inner h3 {
+    margin-top: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    color: black;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid cadetblue;
+}
+
+.selects-block {
+    display: inline-block;
+    width: 19em;
+    margin-right: 10px;
+}
+
+.form-inner label {
+    font-weight: bold;
 }

@@ -14,6 +14,9 @@ import FilmDto from "../../DTOs/filmDto";
 import '../../css/main.css'
 import '../../css/header.css'
 
+import '../helpers/modal/modal.css'
+import {Modal} from '../helpers/modal/modal.js';
+
 let sortOptions = {field: SortOptions.DefaultOrder, rule: SortOptions.Asc};
 let searchOption = '';
 
@@ -183,8 +186,14 @@ function handleRowButtonClick(e: Event) : void {
 function deleteFilm(e: Event) : void {
   const target = <Element>e.target;
 
-  filmService.deleteFilm(Number(target.parentElement?.parentElement?.id))
-      .then(() => window.location.reload());
+  Modal.confirm({
+    title: 'Delete Dialog',
+    message: 'Are you sure you want to delete this film?',
+    onConfirm: function() {
+      filmService.deleteFilm(Number(target.parentElement?.parentElement?.id))
+          .then(() => window.location.reload());
+    }
+  });
 }
 
 

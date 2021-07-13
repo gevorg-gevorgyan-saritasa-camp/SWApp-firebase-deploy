@@ -8,7 +8,7 @@ import {Paths} from './values/values';
  * @param {HTMLDivElement} noAuthBlock, Block that will be shown if user is not authenticated.
  * @param {HTMLSpanElement} username, Span for username
  */
-export function authUiMainPage(filmManagementButtons : HTMLCollection,authBlock : HTMLDivElement,
+export function authUiMainPage(filmManagementButtons : HTMLCollection, authBlock : HTMLDivElement,
                                noAuthBlock : HTMLDivElement, username : HTMLSpanElement) : void {
   const isAuth  = Boolean(localStorage.getItem('token'));
   const buttons = Array.prototype.slice.call(filmManagementButtons);
@@ -28,7 +28,7 @@ export function authUiMainPage(filmManagementButtons : HTMLCollection,authBlock 
  *
  * @param {HTMLSpanElement} username, Span for username.
  */
-export function authUiFilmPage(username : HTMLSpanElement) : void {
+export function authUi(username : HTMLSpanElement) : void {
   if (!localStorage.getItem('token')) {
     window.location.href = Paths.LoginPagePath;
   } else {
