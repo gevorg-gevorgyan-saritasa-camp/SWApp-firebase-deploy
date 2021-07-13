@@ -1,18 +1,14 @@
 import '../../css/form.css'
 import '../../css/header.css'
 import filmService from '../../firebase/filmService';
-import CharacterDto from "../../DTOs/characterDto";
-import VehicleDto from "../../DTOs/vehicleDto";
-import SpeciesDto from "../../DTOs/speciesDto";
-import StarshipDto from "../../DTOs/starshipDto";
-import PlanetDto from "../../DTOs/planetDto";
-import FilmDto from "../../DTOs/filmDto";
 import {Paths} from "../values/values";
 
 import '../helpers/modal/modal.css'
 import {Modal} from '../helpers/modal/modal.js';
 import {authUi} from "../authUi";
 import {signOut} from "../../firebase/auth";
+import {EntityObject} from "../../types/types";
+import Film from "../../models/Film/Film";
 
 const params = new URLSearchParams(window.location.search);
 const currentFilmId = Number(params.get('id'));
@@ -63,18 +59,19 @@ signOutButton?.addEventListener('click',  () => {
 function sendFilmDataToAdd(e: Event) : void {
     e.preventDefault();
     const formData = new FormData(filmForm);
-    const film : Partial<FilmDto> = Object.fromEntries(formData.entries());
-    const filmData = {fields: {}} as FilmDto;
+    const film : Partial<Film> = Object.fromEntries(formData.entries());
+    console.log(film);
+    const filmData = new Film();
 
     for (const key in film) {
         const currentEl = document.getElementById(key) as HTMLInputElement | HTMLSelectElement;
         if (currentEl.type === 'select-multiple') {
             const selectedOptions = Array.prototype.slice.call((currentEl as HTMLSelectElement).selectedOptions);
             // @ts-ignore
-            filmData.fields[key as keyof FilmDto] = selectedOptions.map(option => Number(option.value));
+            filmData[key as keyof Film] = selectedOptions.map(option => Number(option.value));
         } else {
             // @ts-ignore
-            filmData.fields[key as keyof FilmDto] = currentEl.value;
+            filmData[key as keyof Film] = currentEl.value;
         }
     }
 
@@ -87,16 +84,15 @@ function sendFilmDataToAdd(e: Event) : void {
  * @param {HTMLSelectElement} selectElem Select to fill.
  * @param optionsArr Array of select options.
  */
-function fillMultipleSelect(selectElem : HTMLSelectElement, optionsArr : CharacterDto[] | VehicleDto[] | SpeciesDto[]
-                            | StarshipDto[] | PlanetDto[]) : void {
+function fillMultipleSelect(selectElem : HTMLSelectElement, optionsArr : EntityObject[]) : void {
     optionsArr.forEach(item => {
         let option = document.createElement('option');
         option.value = String(item.id);
-        if ("name" in item) {
+        if (item.name) {
             option.innerHTML = String(item.name);
-        } else if ('vehicle_class' in item) {
+        } else if (item.vehicle_class) {
             option.innerHTML = `${String(item.id)} (${String(item.vehicle_class)})`;
-        } else if ('starship_class' in item) {
+        } else if (item.starship_class) {
             option.innerHTML = `${String(item.id)} (${String(item.starship_class)})`;
         }
         selectElem.add(option);
@@ -105,21 +101,22 @@ function fillMultipleSelect(selectElem : HTMLSelectElement, optionsArr : Charact
 
 function sendFilmDataToEdit(e: Event) : void {
     e.preventDefault();
-    const filmData = {fields: {}} as FilmDto;
+    filmService.getSingleFilm(currentFilmId)
+        .then(filmDataPayload => {
+            for (const key of changedFields.keys()) {
+                // @ts-ignore
+                filmDataPayload[key as keyof Film] = changedFields.get(key);
+            }
 
-    for (const key of changedFields.keys()) {
-        // @ts-ignore
-        filmData.fields[key as keyof FilmDto] = changedFields.get(key);
-    }
-
-    Modal.confirm({
-        title: 'Edit Dialog',
-        message: 'Are you sure you want to edit this film?',
-        onConfirm: function() {
-            filmService.editFilm(filmData, currentFilmId)
-                .then(() => window.location.href = Paths.MainPagePath);
-        }
-    });
+            Modal.confirm({
+                title: 'Edit Dialog',
+                message: 'Are you sure you want to edit this film?',
+                onConfirm: function() {
+                    filmService.editFilm(filmDataPayload, currentFilmId)
+                        .then(() => window.location.href = Paths.MainPagePath);
+                }
+            });
+        })
 }
 
 /**
@@ -133,12 +130,12 @@ function fillForm() : void {
                 fieldName = element.getAttribute('name') as string;
                 if ((element as HTMLSelectElement | HTMLInputElement).type === 'select-multiple') {
                     //@ts-ignore
-                    currentFilmData.fields[fieldName as keyof FilmDto].forEach(el => {
+                    currentFilmData[fieldName as keyof Film].forEach(el => {
                         (element as HTMLSelectElement).options.item(el)!.selected = true;
                     })
                 } else {
                     // @ts-ignore
-                    (element as HTMLInputElement | HTMLSelectElement).value = currentFilmData.fields[fieldName as keyof FilmDto];
+                    (element as HTMLInputElement | HTMLSelectElement).value = currentFilmData[fieldName as keyof Film];
                 }
             }
         })

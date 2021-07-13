@@ -4,16 +4,16 @@ class Film {
     public episodeId: number;
     public producer: string;
     public openingCrawl: string;
-    public releaseDate: Date;
+    public releaseDate: string;
     public characters: number[];
     public planets: number[];
     public starships: number[];
     public vehicles: number[];
     public species: number[];
 
-    constructor(title : string, episodeId : number, director : string, producer : string, openingCrawl : string,
-                releaseDate : Date, characters : number[], species : number[], planets : number[], vehicles : number[],
-                starships : number[]) {
+    constructor(title : string = '', episodeId : number = 0, director : string = '', producer : string = '',
+                openingCrawl : string = '', releaseDate : string = '', characters : number[] = [], species : number[] = [],
+                planets : number[] = [], vehicles : number[] = [], starships : number[] = []) {
         this.title = title;
         this.director = director;
         this.episodeId = episodeId;

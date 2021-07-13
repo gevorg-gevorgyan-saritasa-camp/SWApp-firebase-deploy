@@ -8,7 +8,10 @@ import {
 import firebaseApp from './firebase';
 import FilmDto from '../DTOs/filmDto';
 import firebase from 'firebase';
-import {FilmRelatedEntities, SortOptions} from '../types/types';
+import {EntityObject, FilmRelatedEntities, SortOptions} from '../types/types';
+import {filmDtoToModelMapper} from "../models/Film/filmDtoToModelMapper";
+import Film from "../models/Film/Film";
+import {filmModelToDtoMapper} from "../models/Film/filmModelToDtoMapper";
 
 class FilmService {
   currentPageFilms: firebase.firestore.QuerySnapshot | undefined;
@@ -83,12 +86,12 @@ class FilmService {
    * @param {number} currentFilmId, Film id.
    * @return {Promise<*>} Promise with film data.
    */
-  async getSingleFilm(currentFilmId : number) : Promise<FilmDto> {
-    let film = await firebaseApp.firestore().collection(FILMS_COLLECTION)
+  async getSingleFilm(currentFilmId : number) : Promise<Film> {
+    const film = (await firebaseApp.firestore().collection(FILMS_COLLECTION)
       .where(SearchOptions.FilmEpisodeField, '==', currentFilmId)
-      .get();
+      .get()).docs[0].data() as FilmDto;
 
-    return film.docs[0].data() as FilmDto;
+    return filmDtoToModelMapper(film);
   }
 
   /**
@@ -143,12 +146,15 @@ class FilmService {
    *
    * @return {Promise<any[]>} Array of collection's items.
    */
-  async getEntity(collectionName : string) : Promise<any[]> {
+  async getEntity(collectionName : string) : Promise<EntityObject[]> {
     let items = await firebaseApp.firestore().collection(collectionName).get();
 
     return items.docs.map(item => {
-      let obj = item.data().fields;
+      let obj = {} as EntityObject;
       obj.id = item.data().pk;
+      obj.name = item.data().fields.name;
+      obj.vehicle_class = item.data().fields.vehicle_class || null;
+      obj.starship_class = item.data().fields.starship_class || null;
       return obj;
     });
   }
@@ -159,14 +165,15 @@ class FilmService {
    * @param {FilmDto} filmData Data of the film to be added
    *
    */
-  async addFilm(filmData : FilmDto) : Promise<void> {
-    filmData.pk = await this.getLastFilmId() + 1;
-    filmData.fields.episode_id = filmData.pk;
-    filmData.fields.edited = new Date().toISOString();
-    filmData.fields.created = new Date().toISOString();
-    filmData.model = FILM_MODEL;
+  async addFilm(filmData : Film) : Promise<void> {
+    const filmToAdd = filmModelToDtoMapper(filmData);
+    filmToAdd.pk = await this.getLastFilmId() + 1;
+    filmToAdd.fields.episode_id = filmToAdd.pk;
+    filmToAdd.fields.edited = new Date().toISOString();
+    filmToAdd.fields.created = new Date().toISOString();
+    filmToAdd.model = FILM_MODEL;
     await firebaseApp.firestore().collection(FILMS_COLLECTION)
-        .add(filmData);
+        .add(filmToAdd);
   }
 
   /**
@@ -175,13 +182,14 @@ class FilmService {
    * @param {FilmDto} filmData Data of the film to be updated
    * @param {number} currentFilmId Film id.
    */
-  async editFilm(filmData : FilmDto, currentFilmId: number) : Promise<void> {
-    filmData.fields.edited = new Date().toISOString();
+  async editFilm(filmData : Film, currentFilmId: number) : Promise<void> {
+    const filmToEdit = filmModelToDtoMapper(filmData);
+    filmToEdit.fields.edited = new Date().toISOString();
     const currentFilm = await firebaseApp.firestore().collection(FILMS_COLLECTION)
         .where(SearchOptions.FilmEpisodeField, '==', currentFilmId)
         .get();
     await firebaseApp.firestore().collection(FILMS_COLLECTION).doc(currentFilm.docs[0].id)
-        .set(filmData, {merge: true});
+        .set(filmToEdit, {merge: true});
   }
 
   /**
