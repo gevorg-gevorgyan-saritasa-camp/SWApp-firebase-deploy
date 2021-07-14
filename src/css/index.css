@@ -80,7 +80,7 @@
     font-size: 1.4em;
     padding: 10px;
     display: flex;
-    width: max-content;
+    width: min-content;
 }
 
 .films-management-button:hover {
@@ -94,8 +94,21 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 80px;
+    min-width: 950px;
 }
 
 .button-image {
     pointer-events: none;
+}
+
+@media (max-width: 950px) {
+    .table-body td {
+        font-size: 0.8em;
+        padding: 5px;
+    }
+
+    .films-table th {
+        font-size: 0.8em;
+        width: max-content;
+    }
 }
