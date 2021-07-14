@@ -8,10 +8,10 @@ import {
 import firebaseApp from './firebase';
 import FilmDto from '../DTOs/filmDto';
 import firebase from 'firebase';
-import {EntityObject, FilmRelatedEntities, SortOptions} from '../types/types';
-import {filmDtoToModelMapper} from "../models/Film/filmDtoToModelMapper";
-import Film from "../models/Film/Film";
-import {filmModelToDtoMapper} from "../models/Film/filmModelToDtoMapper";
+import {EntityObject, FilmRelatedEntities, SortOptions, StarshipObject, VehicleObject} from '../types/types';
+import {filmDtoToModelMapper} from '../models/Film/filmDtoToModelMapper';
+import Film from '../models/Film/Film';
+import {filmModelToDtoMapper} from '../models/Film/filmModelToDtoMapper';
 
 class FilmService {
   currentPageFilms: firebase.firestore.QuerySnapshot | undefined;
@@ -74,7 +74,7 @@ class FilmService {
    *
    * @param {object} films, Films object received from db.
    *
-   * @return {Array<Film>} Films data array.
+   * @return {Film[]} Films data array.
    */
   getFilmsData(films : firebase.firestore.QuerySnapshot) : FilmDto[] {
     return films.docs.map(doc => doc.data() as FilmDto);
@@ -98,7 +98,7 @@ class FilmService {
    * Gets array of names of related entity items.
    *
    * @param {string} entityCollectionName, Name of related entity (collection in db).
-   * @param {Array<number>} relatedEntityIds, Array of related entity items ids.
+   * @param {number[]} relatedEntityIds, Array of related entity items ids.
    * @return {Promise<string[]>} Promise with related entity items array.
    */
   async getFilmRelatedEntityItems(entityCollectionName : string, relatedEntityIds : number[]) : Promise<string[]> {
@@ -130,11 +130,11 @@ class FilmService {
   async getAllRelatedEntities() : Promise<FilmRelatedEntities> {
     const entitiesItems = {} as FilmRelatedEntities;
 
-    entitiesItems.characters = await this.getFilmRelatedEntity(FilmFields.characters);
-    entitiesItems.vehicles = await this.getFilmRelatedEntity(FilmFields.vehicles);
-    entitiesItems.planets = await this.getFilmRelatedEntity(FilmFields.planets);
-    entitiesItems.species = await this.getFilmRelatedEntity(FilmFields.species);
-    entitiesItems.starships = await this.getFilmRelatedEntity(FilmFields.starships);
+    entitiesItems.characters = await this.getFilmRelatedEntity(FilmFields.characters) as EntityObject[];
+    entitiesItems.vehicles = await this.getFilmRelatedEntity(FilmFields.vehicles) as VehicleObject[];
+    entitiesItems.planets = await this.getFilmRelatedEntity(FilmFields.planets) as EntityObject[];
+    entitiesItems.species = await this.getFilmRelatedEntity(FilmFields.species) as EntityObject[];
+    entitiesItems.starships = await this.getFilmRelatedEntity(FilmFields.starships) as StarshipObject[];
 
     return entitiesItems;
   }
@@ -146,16 +146,17 @@ class FilmService {
    *
    * @return {Promise<any[]>} Array of collection's items.
    */
-  async getFilmRelatedEntity(collectionName : string) : Promise<EntityObject[]> {
-    let items = await firebaseApp.firestore().collection(collectionName).get();
+  async getFilmRelatedEntity(collectionName : string) : Promise<(StarshipObject | EntityObject | VehicleObject)[]> {
+    const items = await firebaseApp.firestore().collection(collectionName).get();
 
     return items.docs.map(item => {
-      let obj = {} as EntityObject;
-      obj.id = item.data().pk;
-      obj.name = item.data().fields.name;
-      obj.vehicle_class = item.data().fields.vehicle_class || null;
-      obj.starship_class = item.data().fields.starship_class || null;
-      return obj;
+      if ('vehicle_class' in item.data().fields) {
+        return {id: item.data().pk, vehicle_class: item.data().fields.vehicle_class} as VehicleObject;
+      } else if ('starship_class' in item.data().fields) {
+        return {id: item.data().pk, starship_class: item.data().fields.starship_class} as StarshipObject;
+      } else {
+        return {id: item.data().pk, name: item.data().fields.name} as EntityObject;
+      }
     });
   }
 

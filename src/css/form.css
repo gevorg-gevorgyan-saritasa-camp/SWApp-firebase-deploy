@@ -17,9 +17,9 @@
     font-family: 'Roboto', sans-serif;
 }
 .form-inner button[type="submit"] {
-    background-color: white;
-    border: 1px solid cadetblue;
-    color: black;
+    background-color: var(--white-color);
+    border: 1px solid var(--main-color);
+    color: var(--balck-color);
     text-decoration: none;
     padding: 10px;
     margin-right: 50px;
@@ -32,8 +32,8 @@
     margin-left: auto;
     margin-right: auto;
     cursor: pointer;
-    background-color: cadetblue;
-    color: white;
+    background-color: var(--main-color);
+    color: var(--white-color);
 }
 
 .form-inner textarea {
@@ -46,11 +46,11 @@
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     font-size: 24px;
-    color: black;
+    color: var(--balck-color);
     text-align: center;
     margin-bottom: 20px;
     padding: 10px;
-    border: 1px solid cadetblue;
+    border: 1px solid var(--main-color);
 }
 
 .selects-block {

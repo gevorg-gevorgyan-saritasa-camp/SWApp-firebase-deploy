@@ -26,7 +26,7 @@
 }
 
 .film-related-entities-selector {
-    border-color: cadetblue;
+    border-color: var(--main-color);
     border-width: 2px;
     font-size: 0.8em;
 }

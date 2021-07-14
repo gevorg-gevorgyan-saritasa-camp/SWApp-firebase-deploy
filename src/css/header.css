@@ -1,6 +1,12 @@
+:root {
+    --main-color: cadetblue;
+    --white-color: white;
+    --balck-color: black;
+}
+
 header {
     display: flex;
-    border: 2px solid cadetblue;
+    border: 2px solid var(--main-color);
 }
 
 header h1 {
@@ -10,7 +16,7 @@ header h1 {
 }
 
 .authentication_block {
-    border-left: 1px solid cadetblue;
+    border-left: 1px solid var(--main-color);
     margin-left: auto;
     display: flex;
     align-items: center;
@@ -19,9 +25,9 @@ header h1 {
 }
 
 .authentication_block button, .authentication_block a {
-    background-color: white;
-    border: 1px solid cadetblue;
-    color: black;
+    background-color: var(--white-color);
+    border: 1px solid var(--main-color);
+    color: var(--balck-color);
     text-decoration: none;
     padding: 10px;
     margin-right: 50px;
@@ -31,8 +37,8 @@ header h1 {
 
 .authentication_block button:hover, .authentication_block a:hover {
     cursor: pointer;
-    background-color: cadetblue;
-    color: white;
+    background-color: var(--main-color);
+    color: var(--white-color);
 }
 
 .username {
@@ -50,7 +56,7 @@ header h1 {
     width: min-content;
     padding: 5px;
     margin: 30px 30px 0 20px;
-    border: 3px dotted cadetblue;
+    border: 3px dotted var(--main-color);
 }
 
 .link-back-block:hover {
@@ -61,6 +67,6 @@ header h1 {
 .link-back-block a {
     text-decoration: none;
     margin-left: 10px;
-    color: black;
+    color: var(--balck-color);
     font-size: 2.0em;
 }

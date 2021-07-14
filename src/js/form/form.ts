@@ -7,7 +7,7 @@ import '../helpers/modal/modal.css'
 import {Modal} from '../helpers/modal/modal.js';
 import {authUi} from "../authUi";
 import {signOut} from "../../firebase/auth";
-import {EntityObject} from "../../types/types";
+import {EntityObject, StarshipObject, VehicleObject} from "../../types/types";
 import Film from "../../models/Film/Film";
 
 const params = new URLSearchParams(window.location.search);
@@ -81,16 +81,16 @@ function sendFilmDataToAdd(e: Event) : void {
  * @param {HTMLSelectElement} selectElem Select to fill.
  * @param optionsArr Array of select options.
  */
-function fillMultipleSelect(selectElem : HTMLSelectElement, optionsArr : EntityObject[]) : void {
+function fillMultipleSelect(selectElem : HTMLSelectElement, optionsArr : EntityObject[] | StarshipObject[] | VehicleObject[]) : void {
     optionsArr.forEach(item => {
         let option = document.createElement('option');
         option.value = String(item.id);
-        if (item.name) {
-            option.innerHTML = String(item.name);
-        } else if (item.vehicle_class) {
+        if ('vehicle_class' in item) {
             option.innerHTML = `${String(item.id)} (${String(item.vehicle_class)})`;
-        } else if (item.starship_class) {
+        } else if ('starship_class' in item) {
             option.innerHTML = `${String(item.id)} (${String(item.starship_class)})`;
+        } else {
+            option.innerHTML = String(item.name);
         }
         selectElem.add(option);
     })

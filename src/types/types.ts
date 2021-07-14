@@ -6,14 +6,22 @@ export type SortOptions = {
 export type FilmRelatedEntities = {
     characters: EntityObject[];
     planets: EntityObject[];
-    vehicles: EntityObject[];
+    vehicles: VehicleObject[];
     species: EntityObject[];
-    starships: EntityObject[];
+    starships: StarshipObject[];
 }
 
 export type EntityObject = {
     id: number;
     name: string;
-    vehicle_class: number | null;
+}
+
+export type StarshipObject = {
+    id: number;
     starship_class: number | null;
+}
+
+export type VehicleObject = {
+    id: number;
+    vehicle_class: number | null;
 }

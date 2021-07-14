@@ -4,46 +4,49 @@
  * @version 1.0
  * Copyright (c) Joao Teixeira
  * https://github.com/jpntex
- *
  */
 export const Modal = (function () {
+  /**
+   *
+   */
+  // eslint-disable-next-line no-shadow
   function Modal(type, options) {
 
-    var defaults = {
-      title: 'Notification', // modal title
-      message: '', // modal message
-      autoOpen: true, // show modal when declared
-      closeOnEscape: true, // close when escape key pressed
-      closeOnBlur: true, // close when overlay is clicked
-      animated: true, // animate modal
+    const defaults = {
+      title: 'Notification', // Modal title
+      message: '', // Modal message
+      autoOpen: true, // Show modal when declared
+      closeOnEscape: true, // Close when escape key pressed
+      closeOnBlur: true, // Close when overlay is clicked
+      animated: true, // Animate modal
 
-      // button options
-      buttonLbl: 'Confirm', // main button label
-      buttonClass: '', // main button class
-      cancelLbl: 'Cancel', // cancel button label
+      // Button options
+      buttonLbl: 'Confirm', // Main button label
+      buttonClass: '', // Main button class
+      cancelLbl: 'Cancel', // Cancel button label
 
-      // callbacks
-      onConfirm: function () {
-      }, // callback on confirm
-      onCancel: function () {
-      }, // callback on cancel
-      onClose: function () {
-      } // callback on close
+      // Callbacks
+      onConfirm: () => {
+      }, // Callback on confirm
+      onCancel: () => {
+      }, // Callback on cancel
+      onClose: () => {
+      }, // Callback on close
     };
 
     this.type = type;
     this.options = extend(defaults, options);
 
-    // animations not supported on IE9
-    if (navigator.appVersion.indexOf("MSIE 9") !== -1) {
+    // Animations not supported on IE9
+    if (navigator.appVersion.indexOf('MSIE 9') !== -1) {
       this.options.animated = false;
     }
 
     this.init();
   }
 
-  // modal templates
-  var templates = {
+  // Modal templates
+  const templates = {
     modal: '<div class="modal-box">' +
       '<div class="modal-title">[[title]]<div class="close-modal" data-action="close">&times;</div></div>' +
       '<div class="modal-message">[[message]]</div>' +
@@ -51,37 +54,45 @@ export const Modal = (function () {
       '</div>',
     btn: '<div class="modal-btn" data-action="close">[[label]]</div>',
     btnAlert: '<div class="modal-btn btn-alert" data-action="close">[[label]]</div>',
-    btnConfirm: '<div class="modal-btn btn-confirm [[classes]]" data-action="confirm">[[label]]</div>'
+    btnConfirm: '<div class="modal-btn btn-confirm [[classes]]" data-action="confirm">[[label]]</div>',
   };
 
-  // generates the modal html from the templates given the modal's type and options
+  // Generates the modal html from the templates given the modal's type and options
+  /**
+   *
+   */
+  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
   function buildModal(type, options) {
-    var modal = document.createElement('div');
-    modal.className = 'modal';
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
 
     if (options.closeOnBlur) modal.setAttribute('data-action', 'close');
 
-    var modalTmplt = templates.modal;
+    let modalTmplt = templates.modal;
 
-    // set modal animations
+    // Set modal animations
     if (options.animated) {
-      modal.className += ' fadeIn';
+      modal.classList.add('fadeIn');
     }
 
     modalTmplt = modalTmplt.replace('[[title]]', options.title);
     modalTmplt = modalTmplt.replace('[[message]]', options.message);
 
-    // add buttons based on modal type
+    let buttons = null;
+
+    // Add buttons based on modal type
     switch (type) {
-      case 'confirm':
-        var buttons = templates.btn.replace('[[label]]', options.cancelLbl);
-        buttons += templates.btnConfirm.replace('[[label]]', options.buttonLbl).replace('[[classes]]', options.buttonClass);
-        modalTmplt = modalTmplt.replace('[[buttons]]', buttons);
-        break;
-      case 'alert':
-        var buttons = templates.btnAlert.replace('[[label]]', options.buttonLbl);
-        modalTmplt = modalTmplt.replace('[[buttons]]', buttons);
-        break;
+    case 'confirm':
+      buttons = templates.btn.replace('[[label]]', options.cancelLbl);
+      buttons += templates.btnConfirm.replace('[[label]]', options.buttonLbl).replace('[[classes]]', options.buttonClass);
+      modalTmplt = modalTmplt.replace('[[buttons]]', buttons);
+      break;
+    case 'alert':
+      buttons = templates.btnAlert.replace('[[label]]', options.buttonLbl);
+      modalTmplt = modalTmplt.replace('[[buttons]]', buttons);
+      break;
+    default:
+      break;
     }
 
     modal.innerHTML = modalTmplt;
@@ -89,16 +100,16 @@ export const Modal = (function () {
   }
 
 
-  // handle modal events
+  // Handle modal events
   Modal.prototype.handleEvent = function (event) {
-    var dataAction = event.target.getAttribute('data-action');
+    const dataAction = event.target.getAttribute('data-action');
 
-    // animation ended callback
+    // Animation ended callback
     if (event.type === 'animationend') {
       return this.onAnimationEnd(event);
     }
 
-    // check if 'Esc' key was pressed and close modal if set
+    // Check if 'Esc' key was pressed and close modal if set
     if (this.options.closeOnEscape) {
       if (event.keyCode === 27) {
         this.options.onCancel();
@@ -117,7 +128,7 @@ export const Modal = (function () {
     }
   };
 
-  // animation end event handler
+  // Animation end event handler
   Modal.prototype.onAnimationEnd = function (event) {
     this.modal.removeEventListener('animationend', this);
     document.body.removeChild(this.modal);
@@ -125,38 +136,38 @@ export const Modal = (function () {
     return this;
   };
 
-  // initialize modal creation
+  // Initialize modal creation
   Modal.prototype.init = function () {
     this.modal = buildModal(this.type, this.options);
     if (this.options.autoOpen) this.open();
   };
 
-  // open modal
+  // Open modal
   Modal.prototype.open = function () {
-    // reset to fadeIn animation on open
+    // Reset to fadeIn animation on open
     if (this.options.animated) {
-      this.modal.className = 'modal fadeIn';
+      this.modal.classList.add('modal', 'fadeIn');
     }
 
-    // append modal to the body
+    // Append modal to the body
     document.body.appendChild(this.modal);
 
-    // attach events listeners
+    // Attach events listeners
     this.modal.addEventListener('click', this);
     document.onkeyup = this.handleEvent.bind(this);
 
     return this;
   };
 
-  // close modal
+  // Close modal
   Modal.prototype.close = function () {
-    // clean events listeners
+    // Clean events listeners
     this.modal.removeEventListener('click', this);
     document.onkeyup = null;
 
     if (this.options.animated) {
       this.modal.addEventListener('animationend', this);
-      this.modal.className = 'modal fadeOut';
+      this.modal.classList.add('modal fadeOut');
     } else {
       document.body.removeChild(this.modal);
       this.options.onClose();
@@ -165,23 +176,29 @@ export const Modal = (function () {
     return this;
   };
 
-  // helper functions
+  // Helper functions
+  /**
+   *
+   */
   function extend(obj1, obj2) {
-    for (var key in obj2)
+    for (const key in obj2)
       if (obj2.hasOwnProperty(key))
         obj1[key] = obj2[key];
     return obj1;
   }
 
+  /**
+   *
+   */
   function isFunction(fn) {
     return typeof fn === 'function';
   }
 
-  // modal interfaces
+  // Modal interfaces
   return {
     confirm: function (options, onConfirm, onCancel, onClose) {
       options = (typeof options === 'string') ? {
-        message: options
+        message: options,
       } : options;
 
       if (isFunction(onClose)) options.onClose = onClose;
@@ -192,12 +209,12 @@ export const Modal = (function () {
     },
     alert: function (options, onClose) {
       options = (typeof options === 'string') ? {
-        message: options
+        message: options,
       } : options;
 
       if (isFunction(onClose)) options.onClose = onClose;
 
       return new Modal('alert', options);
-    }
+    },
   };
 })();
