@@ -5,6 +5,11 @@
  * Copyright (c) Joao Teixeira
  * https://github.com/jpntex
  */
+:root {
+    --main-bg-color: white;
+    --border-color: #E1E4E5;
+}
+
 .modal {
     position: fixed;
     top: 0;
@@ -25,14 +30,14 @@
     max-width: 100%;
     border: 1px solid #263545;
     border-radius: 3px;
-    background-color: #fff;
+    background-color: var(--main-bg-color);
     box-shadow: 0 0 26px 4px rgba(0, 0, 0, 0.2);
 }
 .modal .modal-box .modal-title {
     position: relative;
     padding: 20px 55px 20px 30px;
-    border-bottom: 1px solid #E1E4E5;
-    background-color: #FFFFFF;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--main-bg-color);
     color: #181A1A;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -54,7 +59,7 @@
 .modal .modal-box .modal-message {
     text-align: center;
     padding: 45px 30px;
-    border-bottom: 1px solid #E1E4E5;
+    border-bottom: 1px solid var(--border-color);
     text-overflow: ellipsis;
     overflow: hidden;
 }
@@ -90,7 +95,7 @@
     width: 100%;
 }
 .modal .modal-box .modal-buttons .modal-btn + .modal-btn {
-    border-left: 1px solid #E1E4E5;
+    border-left: 1px solid var(--border-color);
 }
 .modal .modal-box .modal-buttons .modal-btn:hover {
     background-color: #E7EBED;
@@ -99,21 +104,19 @@
     color: #E34F4F;
 }
 .modal .modal-box .modal-buttons .modal-btn.red:hover {
-    color: #fff;
+    color: var(--main-bg-color);
     background-color: #E34F4F;
 }
 .modal .modal-box .modal-buttons .modal-btn.green {
     color: #2FAF45; }
 .modal .modal-box .modal-buttons .modal-btn.green:hover {
-    color: #fff;
+    color: var(--main-bg-color);
     background-color: #2FAF45;
 }
 .modal.fadeIn {
-    -webkit-animation: fadeIn 0.3s ease;
     animation: fadeIn 0.3s ease;
 }
 .modal.fadeOut {
-    -webkit-animation: fadeOut 0.2s forwards;
     animation: fadeOut 0.2s forwards;
 }
 

@@ -37,11 +37,6 @@ export const Modal = (function () {
     this.type = type;
     this.options = extend(defaults, options);
 
-    // Animations not supported on IE9
-    if (navigator.appVersion.indexOf('MSIE 9') !== -1) {
-      this.options.animated = false;
-    }
-
     this.init();
   }
 
