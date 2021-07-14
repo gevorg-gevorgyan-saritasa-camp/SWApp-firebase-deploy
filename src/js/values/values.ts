@@ -34,7 +34,7 @@ export const FilmFields = {
 };
 
 export const Paths = {
-  MainPagePath: 'main.html',
+  MainPagePath: 'index.html',
   FilmPagePath: 'film.html',
   LoginPagePath: 'login.html',
   FormPagePath: 'form.html',

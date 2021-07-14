@@ -3,7 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const pages = ['main', 'film', 'login', 'form'];
+const pages = ['index', 'film', 'login', 'form'];
 
 module.exports = {
   mode: 'development',

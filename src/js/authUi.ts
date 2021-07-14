@@ -1,7 +1,7 @@
 import {Paths} from './values/values';
 
 /**
- * Function determines which block will be shown on a main page, depending on whether the user is authenticated or not.
+ * Function determines which block will be shown on a index page, depending on whether the user is authenticated or not.
  *
  * @param {HTMLButtonElement[]} filmManagementButtons
  * @param {HTMLDivElement} authBlock, Block that will be shown if user is authenticated.

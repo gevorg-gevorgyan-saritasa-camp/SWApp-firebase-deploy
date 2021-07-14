@@ -2,12 +2,12 @@
   "name": "swfilms",
   "version": "1.0.0",
   "description": "",
-  "main": "src/js/main/main.ts",
+  "main": "src/js/index/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint -c .eslintc.js src",
     "build": "webpack",
-    "start": "webpack serve --open --open-page main.html"
+    "start": "webpack serve --open --open-page index.html"
   },
   "author": "",
   "license": "ISC",

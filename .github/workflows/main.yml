@@ -2,7 +2,7 @@ name: Build and deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [ index ]
     
   # Run workflow manually
   workflow_dispatch:
@@ -13,13 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@main
+        uses: actions/checkout@index
       - name: Install dependencies
         run: npm ci
       - name: Build dependencies
         run: npm run build
       - name: Archive production artifact
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@index
         with:
           name: dist
           path: dist
@@ -29,9 +29,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@main
+        uses: actions/checkout@index
       - name: Download artifact
-        uses: actions/download-artifact@main
+        uses: actions/download-artifact@index
         with:
           name: dist
           path: dist

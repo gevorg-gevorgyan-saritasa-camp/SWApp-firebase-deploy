@@ -11,7 +11,7 @@ import {signOut} from '../../firebase/auth';
 import {authUiMainPage} from '../authUi';
 import {debounce} from '../helpers/debounce';
 import FilmDto from "../../DTOs/filmDto";
-import '../../css/main.css'
+import '../../css/index.css'
 import '../../css/header.css'
 
 import '../helpers/modal/modal.css'
