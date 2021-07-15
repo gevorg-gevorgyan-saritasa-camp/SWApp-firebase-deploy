@@ -1,5 +1,6 @@
 .films-table {
     margin-top: 20px;
+    width: 100%;
 }
 
 .films-table th {
@@ -104,11 +105,21 @@
 @media (max-width: 950px) {
     .table-body td {
         font-size: 0.8em;
-        padding: 5px;
+        width: min-content;
     }
 
     .films-table th {
         font-size: 0.8em;
-        width: max-content;
+        width: min-content;
+    }
+
+    .button-cell {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .search-block {
+        font-size: 0.8em;
     }
 }

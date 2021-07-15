@@ -133,9 +133,11 @@ function fillTable(rowsData : FilmDto[]) : void {
 
     filmEdit.innerHTML = HTMLFilmCellsTemplates.FilmEditCell;
     filmEdit.addEventListener('click', handleRowButtonClick);
+    filmEdit.classList.add('button-cell');
 
     filmDelete.innerHTML = HTMLFilmCellsTemplates.FilmDeleteCell;
     filmDelete.addEventListener('click', deleteFilm);
+    filmDelete.classList.add('button-cell');
 
     episode.innerHTML = String(film.fields.episode_id);
     title.innerHTML = film.fields.title;
