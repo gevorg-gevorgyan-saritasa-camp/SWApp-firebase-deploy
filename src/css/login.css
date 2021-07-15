@@ -16,3 +16,9 @@
 .sign-in-button img {
     margin-right: 10px;
 }
+
+@media (max-width: 600px) {
+    .sign-in-button {
+        font-size: 0.8em;
+    }
+}

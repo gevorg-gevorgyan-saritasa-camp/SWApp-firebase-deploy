@@ -24,6 +24,17 @@ export function authUiMainPage(filmManagementButtons : HTMLCollection, authBlock
 }
 
 /**
+ * Shows buttons depending on authentication status.
+ * @param {HTMLButtonElement} editButton Button for film editing.
+ * @param {HTMLButtonElement} deleteButton Button for film deleting.
+ */
+export function authUiFilmButtonsCells (editButton : HTMLTableCellElement, deleteButton : HTMLTableCellElement) {
+  const isAuth  = Boolean(localStorage.getItem('token'));
+  editButton.classList.toggle('hidden', !isAuth);
+  deleteButton.classList.toggle('hidden', !isAuth);
+}
+
+/**
  * Function checks access to the film page. If user is not authenticated, it will redirect to login page.
  *
  * @param {HTMLSpanElement} username, Span for username.

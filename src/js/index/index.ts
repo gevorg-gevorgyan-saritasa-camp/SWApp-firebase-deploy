@@ -8,7 +8,7 @@ import {
   HTMLFilmCellsTemplates,
 } from '../values/values';
 import {signOut} from '../../firebase/auth';
-import {authUiMainPage} from '../authUi';
+import {authUiFilmButtonsCells, authUiMainPage} from '../authUi';
 import {debounce} from '../helpers/debounce';
 import FilmDto from "../../DTOs/filmDto";
 import '../../css/index.css'
@@ -138,6 +138,8 @@ function fillTable(rowsData : FilmDto[]) : void {
     filmDelete.innerHTML = HTMLFilmCellsTemplates.FilmDeleteCell;
     filmDelete.addEventListener('click', deleteFilm);
     filmDelete.classList.add('button-cell');
+
+    authUiFilmButtonsCells(filmEdit, filmDelete);
 
     episode.innerHTML = String(film.fields.episode_id);
     title.innerHTML = film.fields.title;

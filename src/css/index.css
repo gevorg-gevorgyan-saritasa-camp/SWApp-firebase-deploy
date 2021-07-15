@@ -91,11 +91,11 @@
 }
 
 .main-content {
-    width: 90%;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 80px;
-    min-width: 950px;
+    min-width: 600px;
 }
 
 .button-image {
@@ -103,14 +103,20 @@
 }
 
 @media (max-width: 950px) {
+    .main-content {
+        margin-top: 50px;
+    }
+
     .table-body td {
         font-size: 0.8em;
         width: min-content;
     }
 
     .films-table th {
+        padding: 0;
+        margin: 0;
         font-size: 0.8em;
-        width: min-content;
+        width: auto;
     }
 
     .button-cell {
@@ -121,5 +127,6 @@
 
     .search-block {
         font-size: 0.8em;
+        margin: 50px auto 10px auto;
     }
 }
