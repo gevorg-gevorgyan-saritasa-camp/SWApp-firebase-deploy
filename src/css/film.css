@@ -1,6 +1,8 @@
 .main-content {
     margin-left: 50px;
     margin-top: 50px;
+    width: 100%;
+    min-width: 300px;
 }
 
 .main-content div {
@@ -13,7 +15,7 @@
 }
 
 .film-opening-crawl {
-    width: 50%;
+    width: 70%;
 }
 
 .film-related-entity-list {
@@ -29,4 +31,10 @@
     border-color: var(--main-color);
     border-width: 2px;
     font-size: 0.8em;
+}
+
+@media (max-width: 900px) {
+    .main-content div {
+        font-size: 1.0em;
+    }
 }

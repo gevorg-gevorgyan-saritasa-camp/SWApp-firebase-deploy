@@ -1,8 +1,9 @@
 .form-inner {
     padding: 50px;
-    width: 40em;
+    width: 40%;
     margin-right: auto;
     margin-left: auto;
+    min-width: 300px;
 }
 .form-inner input, .form-inner textarea, .form-inner select {
     display: block;
@@ -61,4 +62,27 @@
 
 .form-inner label {
     font-weight: bold;
+}
+
+@media (max-width: 730px) {
+    .form-inner {
+        width: 70%;
+        padding: 50px 0 0 0;
+    }
+
+    .form-inner label {
+        font-size: 0.8em;
+    }
+
+    .form-inner h3 {
+        font-size: 1.0em;
+    }
+
+    .form-inner input, .form-inner textarea, .form-inner select {
+        font-size: 0.8em;
+    }
+
+    .form-inner button[type="submit"] {
+        font-size: 1.0em;
+    }
 }
